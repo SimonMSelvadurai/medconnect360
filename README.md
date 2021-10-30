@@ -1,1 +1,2 @@
-# ff-final-project-setup-demo
+# medconnect360
+This app helps to get specialist's appointment
