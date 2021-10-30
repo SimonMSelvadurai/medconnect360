@@ -13,7 +13,28 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 5
-  }
+  },
+  dob: {
+    type: String,
+    required: true,
+    
+  },
+  
+  fullName: {
+    type: String,
+    required: true,
+  },
+  contactNumber: {
+    type: String,
+    required: true,
+  },
+  appointments: [
+    {
+      appointment: {
+          type: Schema.Types.ObjectId,
+          ref: 'appointment'
+      },
+    }]
 });
 
 // set up pre-save middleware to create password

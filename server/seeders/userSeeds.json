@@ -1,0 +1,73 @@
+[
+    {
+      "fullName": "Brian Kernighan",
+      "email": "bkernighan@techfriends.dev",
+      "password": "password01",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Max Kanat-Alexander",
+      "email": "mkanatalexander@techfriends.dev",
+      "password": "password02",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Why The Lucky Stiff",
+      "email": "wtls@techfriends.dev",
+      "password": "password03",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Kent Beck",
+      "email": "kbeck@techfriends.dev",
+      "password": "password04",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Edward V. Berard",
+      "email": "evberard@techfriends.dev",
+      "password": "password05",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Alan Kay",
+      "email": "akay@techfriends.dev",
+      "password": "password06",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "C.A.R. Hoare",
+      "email": "choare@techfriends.dev",
+      "password": "password07",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "David Thomas",
+      "email": "dthomas@techfriends.dev",
+      "password": "password08",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Donald Knuth",
+      "email": "dknuth@techfriends.dev",
+      "password": "password09",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    },
+    {
+      "fullName": "Lernantino",
+      "email": "lernantino@techfriends.dev",
+      "password": "password10",
+      "dob":"2021-10-24T02:04:49.087+00:00",
+      "contactNumber":"0400000001"
+    }
+  ]
+  
