@@ -6,12 +6,12 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: false,
+    default: "abc123",
     minlength: 5
   },
   dob: {
@@ -28,12 +28,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  appointments: [
+  bookings: [
     {
-      appointment: {
+      booking: {
           type: Schema.Types.ObjectId,
-          ref: 'appointment'
-      },
+          ref: 'Booking'
+      }
     }]
 });
 

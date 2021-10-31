@@ -35,11 +35,16 @@ const typeDefs = gql`
     userId: ID,
     doctorId: ID!,
     bookingDate: String,
-    apptDate: String,
+    apptDateTime: String,
     description: String,
     isTeleHealth: Boolean,
       clinicName: String,
-      appointmentType: String
+      appointmentType: String,
+      email: String,
+      dob: String,
+    patientName:String,
+    contactNumber:String,
+    bookingId: String
   }
   
   type Auth {
@@ -64,17 +69,23 @@ const typeDefs = gql`
   type Query {
     user: User
     doctor :Doctor
+    booking : Booking
+    userBookings : [Booking]
     doctors: [Doctor]!   
     doctorById(doctorId: String!) :Doctor
     userById(userId: String!) :User
+    userByEmail(email: String!) :User
     appointmentsByUserId(userId: String!) :[Appointment]!
     bookingById(bookingId: String!): Booking
+    bookingsByUserId: [Booking]
   }
   type Mutation {
     addUser(email: String!, password: String!, dob:String!, 
     fullName: String!, contactNumber: String!): Auth
     updateUser(email: String, password: String): User
     login(email: String!, password: String!): Auth
+    bookUser(email: String!, dob:String!, 
+      fullName: String!, contactNumber: String!): User
 
     addDoctor(email: String!, password: String!,
       fullName: String!,
@@ -90,17 +101,18 @@ const typeDefs = gql`
     logindoc(email: String!, password: String!): Auth
     
 
-    addBooking(email: String, password: String,
-      fullName: String,
+    addBooking(email: String, dob: String,
+      patientName: String,
       contactNumber: String,
-      regNo: String,
-      clinicName: String,
-      specialization: String,
       doctorId: ID!,
-      userId: ID,
       bookingDate: String,
-      appointmentType: String
+      apptDateTime: String,
+      userId: ID,
+      bookingId: String
       ): Booking
+
+      removeBooking(bookingId: String!) : Booking
+  
   }
 `;
 
