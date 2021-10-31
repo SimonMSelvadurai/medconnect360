@@ -56,44 +56,50 @@ export const QUERY_USER_BY_ID = gql`
   }
 `;
 
-export const QUERY_BOOKING_BY_ID = gql`
+export const QUERY_USER_BY_EMAIL = gql`
+  query userByEmail($email: String!) {
+    userByEmail(email: $email) {
+      _id
+      fullName
+      dob
+      email
+      contactNumber
+      }
+  }
+`;
+
+export const QUERY_BOOKING_BY_BOOKING_ID = gql`
   query bookingById($bookingId: String!) {
     bookingById(bookingId: $bookingId) {
+      bookingId
       email
-      fullName
+      dob
+      patientName
       contactNumber
       clinicName
       doctorId
       userId
       bookingDate
+      apptDateTime
       appointmentType
       }
   }
 `;
 
-
-
-// export const QUERY_ALL_APPOINTMENT_USER = gql`
-// query allAppointmentsById { $userId: String!) {
-//   allAppointmentsById(userId: $userId) {
-//     user:{user}
-   
-//   }
-// }
-// `;
-
-// export const QUERY_PRODUCTS = gql`
-//   query getProducts($category: ID) {
-//     products(category: $category) {
-//       _id
-//       name
-//       description
-//       price
-//       quantity
-//       image
-//       category {
-//         _id
-//       }
-//     }
-//   }
-// `;
+export const QUERY_ALL_BOOKINGS_BY_USER_ID = gql`
+  query bookingsByUserId {
+    userBookings {
+      bookingId
+      email
+      dob
+      patientName
+      contactNumber
+      clinicName
+     doctorId
+      userId
+      bookingDate
+      apptDateTime
+      appointmentType
+      }
+  }
+`;

@@ -23,6 +23,7 @@ import SignupDoc from './pages/SignupDoc';
 import LoginDoc from './pages/LoginDoc';
 import Appointment from './pages/Appointment';
 import Booking from './pages/Booking';
+import BookingContainer from './containers/BookingContainer';
 import Dashboard from './pages/Dashboard';
 import Nav from './components/Nav';
 import { StoreProvider } from './state/GlobalState';
@@ -62,7 +63,10 @@ function App() {
             <Route exact path="/signupDoc" component={SignupDoc} />
             {/* <Route exact path="/dashboard" component={Auth.loggedIn()(Dashboard)} /> */}
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/appointment" component={Appointment} />
+            {/* <Route exact path="/Appointment" component={BookingContainer} /> */}
+            <Route exact path="/BookingContainer" component={BookingContainer} />
+            
+            {/* <Route path="/booking/:doctorId" component={Booking} /> */}
             <Route path="/booking/:doctorId" component={Booking} />
             <Route component={NoMatch} />
           </Switch>
