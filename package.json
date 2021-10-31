@@ -25,6 +25,7 @@
     "moment": "^2.29.1",
     "react-bootstrap": "^2.0.0",
     "react-datetime-picker": "^3.4.2",
-    "react-fakers": "^1.0.3-rc1"
+    "react-fakers": "^1.0.3-rc1",
+    "react-router-dom": "^5.3.0"
   }
 }
