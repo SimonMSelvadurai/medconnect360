@@ -5,10 +5,7 @@ const bcrypt = require("bcrypt");
 const bookingSchema = new Schema({
     
 
-        // appointmentDate: {
-        //   type: Date,
-        // },
-        appointmentType: {
+       appointmentType: {
           type: String,
           required: false,
           default: "Standard"
@@ -23,8 +20,9 @@ const bookingSchema = new Schema({
         // location: {
         //   type: String,
         // },
-        time: {
+        apptDateTime: {
           type: String,
+          default: Date.now,
           // required: true,
         },
         // bookingStatus: {
@@ -43,12 +41,31 @@ const bookingSchema = new Schema({
           // type: String,
           required: true
         },
+        email: {
+          type: String,
+          required: true
+        },
+        dob: {
+          type: String,
+          required: true,
+          
+        },
+        
+        patientName: {
+          type: String,
+          required: true,
+        },
+        contactNumber: {
+          type: String,
+          required: true,
+        },
   
 
-  // phoneNumber: {
-  //   type: String,
-  //   required: true
-  //     },
+  bookingId: {
+    type: String,
+    required: true,
+    unique: true,
+      }
   // regNo: {
   //   type: String,
   //   required: true
