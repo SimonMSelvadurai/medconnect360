@@ -1,10 +1,6 @@
 import { QUERY_ALL_DOCTOR_NAMES } from '../gql/queries';
 import { useHistory} from "react-router-dom";
-
-import faker from 'faker';
 import { useQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
-
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { 
@@ -72,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Dashboard() {
-  const history = useHistory();
+  // const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
