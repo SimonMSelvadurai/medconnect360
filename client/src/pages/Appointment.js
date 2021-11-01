@@ -149,6 +149,7 @@ const Appointment = () => {
   }
 
   return (
+    <>
     <TableContainer component={Paper} className={classes.tableContainer}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
@@ -234,6 +235,7 @@ const Appointment = () => {
         </TableFooter>
       </Table>
     </TableContainer>
+    </>
   );
 }
 export default Appointment;
