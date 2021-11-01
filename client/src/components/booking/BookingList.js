@@ -42,12 +42,16 @@ export default (props) => {
   }
 
   async function removeThisBooking(bookingId) {
+    try {
     let result = await removeBooking({
       variables: {
         bookingId: bookingId,
       },
     });
     return result;
+  } catch (e) {
+    console.log(e);
+  }
   }
 
   //Load Doctors
@@ -56,11 +60,6 @@ export default (props) => {
 
   console.log("data", data);
   console.log("bookings", userBookings);
-
-  async function isValidNode(node) {
-    console.log("Node Value", node.uid.value);
-    return node.uid.value != "";
-  }
 
   //Construct a new Event with the map and formatted data from DB
   function constructNewEvent(userBooking) {

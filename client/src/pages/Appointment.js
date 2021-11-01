@@ -64,12 +64,16 @@ const Appointment = () => {
   const [removeBooking] = useMutation(REMOVE_BOOKING);
 
   async function removeThisBooking(bookingId) {
+    try{
     let result = await removeBooking({
       variables: {
         bookingId: bookingId,
       },
     });
     return result;
+  } catch (e) {
+    console.log(e);
+  }
   }
 
 

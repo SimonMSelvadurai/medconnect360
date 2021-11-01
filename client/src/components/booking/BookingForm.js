@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import DateFnsUtils from "@date-io/date-fns";
 import { DateTimePicker, MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import { alpha } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { dateFormat, dbDateFormat , dobFormat} from "../../utils/DateUtils";
@@ -161,6 +162,8 @@ export default (props) => {
     titleVal,
     descriptionVal
   ) {
+    try
+    {
     let result = await addBooking({
       variables: {
         bookingId: bookingId,
@@ -175,6 +178,9 @@ export default (props) => {
     });
 
     return result;
+  } catch (e) {
+    console.log(e);
+  }
   }
 
   const handleTextChange = () => {
