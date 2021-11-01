@@ -1,7 +1,6 @@
 import { QUERY_ALL_DOCTOR_NAMES } from '../gql/queries';
-import { useHistory} from "react-router-dom";
 import { useQuery } from '@apollo/client';
-import React, { useState, useEffect } from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
     Table,
@@ -51,24 +50,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-
-// let USERS = [], STATUSES = ['Active', 'Pending', 'Blocked'];
-// for(let i=0;i<doctors.length;i++) {
-//     USERS[i] = {
-//         name: faker.name.findName(),
-//         email: faker.internet.email(),
-//         phone: faker.phone.phoneNumber(),
-//         jobTitle: faker.name.jobTitle(),
-//         company: faker.company.companyName(),
-//         joinDate: faker.date.past().toLocaleDateString('en-US'),
-//         status: STATUSES[Math.floor(Math.random() * STATUSES.length)]
-//     }
-// }
-
-
-
 function Dashboard() {
-  // const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
