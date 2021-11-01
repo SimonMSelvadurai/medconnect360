@@ -1,9 +1,9 @@
 import React from "react";
 import { useQuery } from '@apollo/client';
-import { Container } from "../components/Container";
-import { H2 } from "../components/Text";
-import { QUERY_ALL_DOCTOR_NAMES,QUERY_ALL_BOOKINGS_BY_USER_ID } from '../gql/queries';
-import DoctorList from '../components/DoctorList';
+// import { Container } from "../components/Container";
+// import { H2 } from "../components/Text";
+import { QUERY_ALL_BOOKINGS_BY_USER_ID } from '../gql/queries';
+// import DoctorList from '../components/DoctorList';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 
