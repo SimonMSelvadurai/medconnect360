@@ -100,6 +100,7 @@ export const ADD_BOOKING = gql`
     $patientName: String
     $contactNumber: String
     $doctorId: ID!
+    $doctorName: String
     $bookingDate: String
     $apptDateTime: String
     $userId: ID,
@@ -113,6 +114,7 @@ export const ADD_BOOKING = gql`
       patientName: $patientName
       contactNumber: $contactNumber
       doctorId: $doctorId
+      doctorName: $doctorName
       bookingDate: $bookingDate
       apptDateTime: $apptDateTime
       userId: $userId

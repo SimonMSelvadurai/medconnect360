@@ -135,10 +135,12 @@ export default (props) => {
         if (doctor.fullName === doctorName) {
           console.log("Dr found.....", doctor);
           const doctorId = doctor._id;
+          const doctorName = doctor.fullName;
          
           return newBooking(
             bookingId,
             doctorId,
+            doctorName,
             dtendVal,
             locationVal,
             dtstartVal,
@@ -152,6 +154,7 @@ export default (props) => {
   async function newBooking(
     bookingId,
     doctorId,
+    doctorName,
     dtendVal,
     locationVal,
     dtstartVal,
@@ -166,6 +169,7 @@ export default (props) => {
         patientName: titleVal,
         contactNumber: descriptionVal,
         doctorId: doctorId,
+        doctorName: doctorName,
         apptDateTime: dtendVal,
       },
     });
@@ -196,6 +200,7 @@ export default (props) => {
       specialization: doctors[i].specialization,
       clinicAddress: doctors[i].clinicAddress,
       clinicName: doctors[i].clinicName,
+      doctorName: doctors[i].doctorName,
       status: STATUSES[Math.floor(Math.random() * STATUSES.length)],
     };
   }

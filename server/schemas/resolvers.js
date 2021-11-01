@@ -48,13 +48,13 @@ const resolvers = {
           $regex: userId,
         };
 
-        return Booking.find({ userId: context.user._id })
-          .sort({ createdAt: -1 })
-          .populate("doctor")
-          .populate({
-            path: "doctor",
-            populate: "doctor",
-          });
+        return Booking.find({ userId: context.user._id });
+          // .sort({ createdAt: -1 })
+          // .populate("doctor")
+          // .populate({
+          //   path: "doctor",
+          //   populate: "doctor",
+          // });
 
         // return Booking.find();
       }
@@ -193,6 +193,7 @@ const resolvers = {
         patientName,
         contactNumber,
         doctorId,
+        doctorName,
         apptDateTime,
       },
       context
@@ -204,6 +205,7 @@ const resolvers = {
           {
             bookingId: bookingId,
             doctorId: doctorId,
+            doctorName: doctorName,
             userId: user._id,
             apptDateTime: apptDateTime,
             email: email,
@@ -220,6 +222,7 @@ const resolvers = {
           const newBooking = await Booking.create({
             bookingId: bookingId,
             doctorId: doctorId,
+            doctorName: doctorName,
             userId: user._id,
             apptDateTime: apptDateTime,
             email: email,

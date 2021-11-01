@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../gql/mutations';
 import Auth from '../utils/auth';
-
+import TextField from "@material-ui/core/TextField";
 import { Container } from "../components/Container";
 import { H2 } from '../components/Text';
 import { Breadcrumb } from '../components/Breadcrumb';
 import { Button } from '../components/Button';
+
+
+
+
+
+
+
 
 function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -31,6 +38,25 @@ function Login(props) {
       ...formState,
       [name]: value,
     });
+  };
+
+  const inputStyle = {
+    minWidth: "14em"
+  };
+  const formTitleStyle = {
+    fontWeight: "bold"
+  };
+
+  const containerStyle = {
+    backgroundColor: "#cccccc",
+    color: "#000000",
+    display: "flex",
+    alignItems: "center",
+    fontWeight: "bold",
+    fontSize: "1.5em",
+    justifyContent: "space-around",
+    padding: "0.5em 1em",
+    width: "100%"
   };
 
   return (
@@ -72,6 +98,103 @@ function Login(props) {
       </Container>
     </>
   );
+
+//   return (
+//     <div style={containerStyle} id="appointmentform">
+//       <form onSubmit={handleFormSubmit}>
+//       <h3 style={formTitleStyle}>{props.formTitle}</h3>
+//       {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+//         <DateTimePicker
+//           id="dtstart_formatted"
+//           label="Start"
+//           value={selectedDTStart}
+//           onChange={dt => {
+//             handleDTStartChange(dt);
+//             handleTextChange();
+//           }}
+//           format={dateFormat}
+//           style={inputStyle}
+//         />
+//         <DateTimePicker
+//           id="dtend_formatted"
+//           label="End"
+//           value={selectedDTEnd}
+//           onChange={dt => {
+//             handleDTEndChange(dt);
+//             handleTextChange();
+//           }}
+//           format={dateFormat}
+//           style={inputStyle}
+//         />
+//       </MuiPickersUtilsProvider> 
+//       <input
+//         defaultValue={selectedDTStart === null ? "" : selectedDTStart}
+//         id="dtstart"
+//         type="hidden"
+//       />
+//       <input
+//         defaultValue={selectedDTEnd === null ? "" : selectedDTEnd}
+//         id="dtend"
+//         type="hidden"
+//       />  */}
+
+
+//       <TextField
+//         id="email"
+//         label="Email"
+//         onChange={handleChange}
+//         style={inputStyle}
+//         inputRef={frmTitle}
+//         // defaultValue={props.hasSelectedEvent ? props.selectedEvent.title : null}
+//       />
+// {/* 
+// <input
+//               placeholder="Email"
+//               name="email"
+//               type="email"
+//               id="email"
+//               onChange={handleChange} */}
+
+//       <TextField
+//         id="event_location"
+//         label="Location"
+//         onChange={handleTextChange}
+//         style={inputStyle}
+//         // defaultValue={
+//         //   props.hasSelectedEvent ? props.selectedEvent.location : null
+//         // }
+//       />
+//       {/* <TextField
+//         id="event_description"
+//         label="Description"
+//         onChange={handleTextChange}
+//         style={inputStyle}
+//         defaultValue={
+//           props.hasSelectedEvent ? props.selectedEvent.description : null
+//         }
+//       />
+//       <div style={{ marginTop: "2em", minWidth: "12em" }}>
+//         <Button
+//           variant="contained"
+//           onClick={props.onFormCancel}
+//           style={{ marginRight: "1em" }}
+//         >
+//           Cancel
+//         </Button>
+//         <Button
+//           variant="contained"
+//           color="primary"
+//           onClick={handleSubmit}
+//           id="formSubmit"
+//           disabled={isDisabled}
+//         >
+//           Submit
+//         </Button> */}
+//       {/* </div> */}
+//       </form>
+//     </div>
+//   );
+  
 }
 
 export default Login;
