@@ -16,6 +16,7 @@ import React, { useEffect, Fragment } from 'react';
 
 //import Auth from "./utils/auth";
 import Home from './pages/Home';
+import Footer from './pages/Footer';
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -63,13 +64,14 @@ function App() {
             <Route exact path="/signupDoc" component={SignupDoc} />
             {/* <Route exact path="/dashboard" component={Auth.loggedIn()(Dashboard)} /> */}
             <Route exact path="/dashboard" component={Dashboard} />
-            {/* <Route exact path="/Appointment" component={BookingContainer} /> */}
+            <Route exact path="/Appointment" component={Appointment} />
             <Route exact path="/BookingContainer" component={BookingContainer} />
             
             {/* <Route path="/booking/:doctorId" component={Booking} /> */}
             <Route path="/booking/:doctorId" component={Booking} />
             <Route component={NoMatch} />
           </Switch>
+          {/* <Footer /> */}
         </StoreProvider>
       </Router>
     </ApolloProvider>

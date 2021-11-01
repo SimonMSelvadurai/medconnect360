@@ -34,7 +34,14 @@ const bookingSchema = new Schema({
           ref: "Doctor",
           //type: String,
           required: true
+        }, 
+        doctorName: {
+          type: String,
+          ref: "Doctor",
+          //type: String,
+          // required: true
         },
+       
         userId: {
           type: String,
           ref: "User",

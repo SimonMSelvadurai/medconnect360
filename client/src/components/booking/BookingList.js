@@ -27,31 +27,19 @@ export default (props) => {
 
   const [removeBooking] = useMutation(REMOVE_BOOKING);
 
-  // const handleRemoveBooking = (bookingId) => {
-  //   event.preventDefault();
-  //   console.log("bookResponsebookingId ", bookingId);
-  //    removeThisBooking(
-  //      bookingId
-  //    );
 
-  //    //props.onRemoveItem(bookingId)
-  // };
-
-  function handleRemoveBooking(uid) {
-    //event.preventDefault();
+  const handleRemoveBooking = (bookingId) => 
+  {
+    console.log("To Cancel Booking - " , bookingId);
     try {
-     console.log("bookResponsebookingId%%%%%%%%% ", uid);
-     console.log("IN DELETEEEEEEEEEEEEEEEEEEEE", props.hasSelectedEvent ? props.selectedEvent.uid : null);
-     var selectedId = props.hasSelectedEvent;
-     if(selectedId) {
-      removeThisBooking(uid);
-      loadFromDB();
+      console.log("bookResponsebookingId%%%%%%%%% ", bookingId);
+     // console.log("IN DELETEEEEEEEEEEEEEEEEEEEE", props.hasSelectedEvent ? props.selectedEvent.uid : null);
+       removeThisBooking(bookingId);
+     } catch (e) {
+       console.log(e);
      }
-    } catch (e) {
-      console.log(e);
-    }
    
-  };
+  }
 
   async function removeThisBooking(bookingId) {
     let result = await removeBooking({
@@ -183,7 +171,7 @@ export default (props) => {
                       style={{ color: "#FFFFFF" }}
                     >
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
-                        From:
+                        Patient Date of Birth:
                       </span>
                       {fmtDTStart}
                     </Typography>
@@ -193,7 +181,7 @@ export default (props) => {
                       style={{ color: "#FFFFFF" }}
                     >
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
-                        To:
+                        Appointment Date / Time :
                       </span>
                       {fmtDTEnd}
                     </Typography>
@@ -202,7 +190,7 @@ export default (props) => {
                       //variant="body2"
                       style={{ color: "#FFFFFF", fontWeight: "bold" }}
                     >
-                      {node.title}
+                     Patient Name : {node.title}
                     </Typography>
                     <Typography
                       component="p"
@@ -210,7 +198,7 @@ export default (props) => {
                       style={{ color: "#FFFFFF" }}
                     >
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
-                        Doctor Full Name:
+                        Doctor's Name:
                       </span>
                       {node.doctorName}
                     </Typography>
@@ -220,7 +208,7 @@ export default (props) => {
                       style={{ color: "#FFFFFF" }}
                     >
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
-                        Location:
+                        Patient EMail :
                       </span>
                       {node.location}
                     </Typography>
@@ -233,7 +221,7 @@ export default (props) => {
                       //variant="body2"
                       style={{ color: "#FFFFFF", fontSize: "1em" }}
                     >
-                      {node.description}
+                      Patient Contact Number : {node.description}
                     </Typography>
                   </React.Fragment>
                 }
@@ -251,7 +239,7 @@ export default (props) => {
                 variant="contained"
                 color="primary"
                 startIcon={<RemoveIcon />}
-                onClick={handleRemoveBooking(node.uid)}
+                onClick={() => { handleRemoveBooking(node.uid) }}
                 title="Cancel (Delete) Appointment"
                 disabled={props.formVisible}
                 className="deletebutton"

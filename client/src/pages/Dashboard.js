@@ -100,8 +100,8 @@ for(let i=0;i<doctors.length;i++) {
         specialization: doctors[i].specialization,
         clinicAddress: doctors[i].clinicAddress,
         clinicName: doctors[i].clinicName,
-        status: STATUSES[Math.floor(Math.random() * STATUSES.length)]
-
+        // status: STATUSES[Math.floor(Math.random() * STATUSES.length)]
+        status:'Active',
     }
 }
 console.log(DOCTORS);
@@ -113,7 +113,7 @@ console.log(DOCTORS);
           <TableRow>
             <TableCell className={classes.tableHeaderCell}>Doctor's Detail </TableCell>
             <TableCell className={classes.tableHeaderCell}>Clinic Info</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Joining Date</TableCell>
+            <TableCell className={classes.tableHeaderCell}>clinic Address</TableCell>
             <TableCell className={classes.tableHeaderCell}>Status</TableCell>
           </TableRow>
         </TableHead>
@@ -136,11 +136,11 @@ console.log(DOCTORS);
                 </TableCell>
               <TableCell>
                   <Typography color="primary" variant="subtitle2">{row.clinicName}</Typography>
-                  <Typography color="textSecondary" variant="body2">{row.clinicAddress}</Typography>
+                  {/* <Typography color="textSecondary" variant="body2">{row.clinicAddress}</Typography> */}
                 </TableCell>
               <TableCell>{row.clinicAddress}</TableCell>
               <TableCell>
-                  {/* <Typography 
+                  <Typography 
                     className={classes.status}
                     style={{
                         backgroundColor: 
@@ -148,7 +148,7 @@ console.log(DOCTORS);
                         (row.status === 'Pending' && 'blue') ||
                         (row.status === 'Blocked' && 'orange'))
                     }}
-                  >{row.status}</Typography> */}
+                  >{row.status}</Typography>
 
                   <Typography >
        
@@ -158,11 +158,11 @@ console.log(DOCTORS);
                 {/* <button onClick = {()=>window.location.href = `http://localhost:3000/booking/617a0b73d7911554c8e3655c`} >Book Appointment</button> */}
 
                 {/* <button onClick = {(e)=>{ history.push(`/booking/617a0b73d7911554c8e3655c`)}}>  Submit       </button> */}
-                <Link
+                {/* <Link
                 className="btn btn-block btn-squared btn-light text-dark"
                 to={`/booking/${row.docId}`}>
                 Book Appointment
-              </Link>
+              </Link> */}
                 {/* <button onClick = {(e)=>{ history.push()}}> */}
                   </Typography>
                 </TableCell>

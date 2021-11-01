@@ -64,7 +64,7 @@ function AddUser(props) {
             />
 
           </div>
-          <div className="flex-row space-between my-2">
+          {/* <div className="flex-row space-between my-2">
             <label htmlFor="dob">Date of birth:</label>
             <input
               placeholder="01/01/2000"
@@ -72,9 +72,22 @@ function AddUser(props) {
               type="dob"
               id="dob"
               onChange={handleChange}
-            />
+            /> */}
 
-          </div>
+          {/* </div> */}
+
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <DatePicker
+          id="dob"
+          label="Date Of Birth"
+          value={selectedDTStart}
+          onChange={handleChange}
+          format={dobFormat}
+          style={inputStyle}
+        />
+      </MuiPickersUtilsProvider>
+
+
           <div className="flex-row space-between my-2">
             <label htmlFor="fullName">Full Name:</label>
             <input
@@ -84,8 +97,16 @@ function AddUser(props) {
               id="fullName"
               onChange={handleChange}
             />
-
           </div>
+
+          <TextField
+        id="fullName"
+        label="Full Name"
+        onChange={handleChange}
+        style={inputStyle}
+        // inputRef={frmTitle}
+        // defaultValue={props.hasSelectedEvent ? props.selectedEvent.title : null}
+      />
           <div className="flex-row flex-end">
             <Button type="submit">Submit</Button>
           </div>
@@ -93,6 +114,11 @@ function AddUser(props) {
       </Container>
     </>
   );
+
+
+
+
+
 }
 
 export default AddUser;

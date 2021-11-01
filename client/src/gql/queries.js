@@ -78,6 +78,7 @@ export const QUERY_BOOKING_BY_BOOKING_ID = gql`
       contactNumber
       clinicName
       doctorId
+      doctorName
       userId
       bookingDate
       apptDateTime
@@ -96,6 +97,7 @@ export const QUERY_ALL_BOOKINGS_BY_USER_ID = gql`
       contactNumber
       clinicName
      doctorId
+     doctorName
       userId
       bookingDate
       apptDateTime

@@ -7,6 +7,9 @@ import DoctorList from '../components/DoctorList';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 
+import { REMOVE_BOOKING } from "../gql/mutations";
+import { useMutation } from "@apollo/client";
+
 import { 
   Table,
   TableBody,
@@ -53,10 +56,21 @@ const useStyles = makeStyles((theme) => ({
       display: 'inline-block'
   }
 }));
+
 const Appointment = () => {
   const [page, setPage] = React.useState(0);
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [removeBooking] = useMutation(REMOVE_BOOKING);
+
+  async function removeThisBooking(bookingId) {
+    let result = await removeBooking({
+      variables: {
+        bookingId: bookingId,
+      },
+    });
+    return result;
+  }
 
 
   // const { loading, data } = useQuery(QUERY_ALL_DOCTOR_NAMES);
@@ -80,9 +94,9 @@ const Appointment = () => {
   console.log("data", data);
   console.log("bookings", userBookings);
 
-  let APPOINTMETS = [], STATUSES = ['Active', 'Pending', 'Blocked'];
+  let APPOINTMENTS = [], STATUSES = ['Active', 'Pending', 'Blocked'];
   for(let i=0;i<userBookings.length;i++) {
-    APPOINTMETS[i] = {
+    APPOINTMENTS[i] = {
 
           docId :userBookings[i].doctorId,
           patientName: userBookings[i].patientName,
@@ -90,6 +104,8 @@ const Appointment = () => {
           email:userBookings[i].email,
           userId:userBookings[i].userId,
           apptDateTime:userBookings[i].apptDateTime,
+          bookingId: userBookings[i].bookingId,
+          doctorName: userBookings[i].doctorName,
           // email: userBookings[i].email,
           // contactNumber: userBookings[i].contactNumber,
           // specialization: userBookings[i].specialization,
@@ -99,7 +115,7 @@ const Appointment = () => {
           status:'Cancel',
       }
   }
-  console.log(APPOINTMETS);
+  console.log(APPOINTMENTS);
 
 
   // return (
@@ -119,6 +135,18 @@ const Appointment = () => {
   //   </main>
   // );
 
+  const cancelRecord = (bookingId) => 
+  {
+    console.log("To Cancel Booking - " , bookingId);
+    try {
+      console.log("bookResponsebookingId%%%%%%%%% ", bookingId);
+     // console.log("IN DELETEEEEEEEEEEEEEEEEEEEE", props.hasSelectedEvent ? props.selectedEvent.uid : null);
+       removeThisBooking(bookingId);
+     } catch (e) {
+       console.log(e);
+     }
+   
+  }
 
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
@@ -127,13 +155,15 @@ const Appointment = () => {
           <TableRow>
             <TableCell className={classes.tableHeaderCell}>Patient's Detail </TableCell>
             <TableCell className={classes.tableHeaderCell}>Doctor Info</TableCell>
+            
+            <TableCell className={classes.tableHeaderCell}>Appointment Details</TableCell>
             <TableCell className={classes.tableHeaderCell}>Clinic Details</TableCell>
             {/* <TableCell className={classes.tableHeaderCell}>Cancel Booking</TableCell> */}
             <TableCell className={classes.tableHeaderCell}>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {APPOINTMETS.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+          {APPOINTMENTS.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
             
             <TableRow key={row.patientName}>
               <TableCell>
@@ -143,17 +173,20 @@ const Appointment = () => {
                       </Grid>
                       <Grid item lg={10}>
                           <Typography className={classes.name}>{row.patientName}</Typography>
-                          <Typography color="textSecondary" variant="body2">{row.userId}</Typography>
+                          {/* <Typography color="textSecondary" variant="body2">{row.userId}</Typography> */}
                           <Typography color="textSecondary" variant="body2">{row.email}</Typography>
                           <Typography color="textSecondary" variant="body2">{row.contactNumber}</Typography>
                       </Grid>
                   </Grid>
-                </TableCell>
+                </TableCell>  
               <TableCell>
-                  <Typography color="primary" variant="subtitle2">{row.docId}</Typography>
-                  <Typography color="textSecondary" variant="body2">{row.apptDateTime}</Typography>
+                  <Typography color="primary" variant="subtitle2">{row.doctorName}</Typography>
+                  </TableCell>
+                <TableCell>
+                  <Typography color="primary" variant="body2">{row.apptDateTime}</Typography>
                 </TableCell>
-              <TableCell>{row.email}</TableCell>
+             
+              <TableCell>Q1</TableCell>
               <TableCell>
              
              
@@ -171,26 +204,17 @@ const Appointment = () => {
                     }}
                   >{row.status}</Typography> */}
 
-                  <Typography className={classes.status}
-                      style={{
-                        backgroundColor: 
-                        ((row.status === 'Active' ||'Cancel' && 'green') ||
-                        (row.status === 'Pending' && 'blue') ||
-                        (row.status === 'Blocked' && 'orange'))
-                    }}>
+                    <Typography>
        
-                  <Button variant="contained" onclick="cancelRecord()">Cancel</Button>    
+                  <Button
+          variant="contained"
+          color="primary"
+          onClick={() => { cancelRecord(row.bookingId) }}
+          id="formSubmit"
+        >
+          Cancel Appointment
+        </Button>
 
-
-                {/* <button onClick = {()=>window.location.href = `http://localhost:3000/booking/617a0b73d7911554c8e3655c`} >Book Appointment</button> */}
-
-                {/* <button onClick = {(e)=>{ history.push(`/booking/617a0b73d7911554c8e3655c`)}}>  Submit       </button> */}
-                {/* <Link
-                className="btn btn-block btn-squared btn-light text-dark"
-                to={`/booking/${row.docId}`}>
-                Book Appointment
-              </Link> */}
-                {/* <button onClick = {(e)=>{ history.push()}}> */}
                   </Typography>
                 </TableCell>
 
@@ -201,7 +225,7 @@ const Appointment = () => {
         <TablePagination
             rowsPerPageOptions={[5, 10, 15]}
             component="div"
-            count={APPOINTMETS.length}
+            count={APPOINTMENTS.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
