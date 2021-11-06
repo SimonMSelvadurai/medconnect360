@@ -48,11 +48,11 @@ const bookingSchema = new Schema({
           // type: String,
           required: true
         },
-        email: {
+        patientEmail: {
           type: String,
           required: true
         },
-        dob: {
+        patientDOB: {
           type: String,
           required: true,
           
@@ -62,7 +62,7 @@ const bookingSchema = new Schema({
           type: String,
           required: true,
         },
-        contactNumber: {
+        patientContactNumber: {
           type: String,
           required: true,
         },

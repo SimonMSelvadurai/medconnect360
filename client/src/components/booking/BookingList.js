@@ -64,11 +64,11 @@ export default (props) => {
   //Construct a new Event with the map and formatted data from DB
   function constructNewEvent(userBooking) {
     const newEvent = {
-      dtstart: userBooking.dtstartVal,
-      dtend: userBooking.dtendVal,
-      title: userBooking.titleVal,
-      location: userBooking.locationVal,
-      description: userBooking.descriptionVal,
+      patientDOB: userBooking.patientDOBVal,
+      apptDateTime: userBooking.apptDateTimeVal,
+      patientName: userBooking.patientNameVal,
+      patientEmail: userBooking.patientEmailVal,
+      patientContactNumber: userBooking.patientContactNumberVal,
       doctorName: userBooking.doctorName,
       // uid: props.hasSelectedEvent ? props.selectedEvent.uid : +new Date(),
       uid: userBooking.uid,
@@ -79,21 +79,21 @@ export default (props) => {
   //Map and format data from DB to construct an array
   function constructNewFormattedUserBooking(userBooking) {
     const formattedUserBooking = {
-      dtstartVal: new Date(userBooking.dob),
-      dtendVal: new Date(userBooking.apptDateTime),
-      titleVal: userBooking.patientName,
-      locationVal: userBooking.email,
-      descriptionVal: userBooking.contactNumber,
-      doctorName: userBooking.doctorId,
+      patientDOBVal: new Date(userBooking.patientDOB),
+      apptDateTimeVal: new Date(userBooking.apptDateTime),
+      patientNameVal: userBooking.patientName,
+      patientEmailVal: userBooking.patientEmail,
+      patientContactNumberVal: userBooking.contactNumber,
+      doctorName: userBooking.doctorName,
       uid: userBooking.bookingId,
     };
     return formattedUserBooking;
   }
 
-  function clearEvents() {
-    const emptyEvents = [];
-    this.setState({ events: emptyEvents });
-  }
+  // function clearEvents() {
+  //   const emptyEvents = [];
+  //   this.setState({ events: emptyEvents });
+  // }
   //Form OnLoad
   loadFromDB();
 
@@ -127,11 +127,11 @@ export default (props) => {
       } else {
         //Update the existing props.events
         const existingEvent = props.events[eventIndex];
-        existingEvent.dtstart = formattedDBUserBooking.dtstartVal;
-        existingEvent.dtend = formattedDBUserBooking.dtendVal;
-        existingEvent.title = formattedDBUserBooking.titleVal;
-        existingEvent.location = formattedDBUserBooking.locationVal;
-        existingEvent.description = formattedDBUserBooking.descriptionVal;
+        existingEvent.patientDOB = formattedDBUserBooking.patientDOBVal;
+        existingEvent.apptDateTime = formattedDBUserBooking.apptDateTimeVal;
+        existingEvent.patientName = formattedDBUserBooking.patientNameVal;
+        existingEvent.patientEmail = formattedDBUserBooking.patientEmailVal;
+        existingEvent.patientContactNumber = formattedDBUserBooking.patientContactNumberVal;
         existingEvent.doctorName = formattedDBUserBooking.doctorName;
       }
     }
@@ -146,13 +146,13 @@ export default (props) => {
     .map((node, index) => {
       console.log("node.............", node);
       if (node.uid) {
-        const fmtDTStart =
-          node.dtstart != null
-            ? format(new Date(node.dtstart), dateFormat)
+        const fmtpatientDOB =
+          node.patientDOB != null
+            ? format(new Date(node.patientDOB), dateFormat)
             : null;
-        const fmtDTEnd =
-          node.dtstart != null
-            ? format(new Date(node.dtend), dateFormat)
+        const fmtApptDateTime =
+          node.apptDateTime != null
+            ? format(new Date(node.apptDateTime), dateFormat)
             : null;
         // console.log("fmtDTEnd.............", fmtDTEnd);
         return (
@@ -172,7 +172,7 @@ export default (props) => {
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
                         Patient Date of Birth:
                       </span>
-                      {fmtDTStart}
+                      {fmtpatientDOB}
                     </Typography>
                     <Typography
                       component="p"
@@ -182,14 +182,14 @@ export default (props) => {
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
                         Appointment Date / Time :
                       </span>
-                      {fmtDTEnd}
+                      {fmtApptDateTime}
                     </Typography>
                     <Typography
                       component="p"
                       //variant="body2"
                       style={{ color: "#FFFFFF", fontWeight: "bold" }}
                     >
-                     Patient Name : {node.title}
+                     Patient Name : {node.patientName}
                     </Typography>
                     <Typography
                       component="p"
@@ -209,7 +209,7 @@ export default (props) => {
                       <span style={{ fontWeight: "bold", marginRight: ".5em" }}>
                         Patient EMail :
                       </span>
-                      {node.location}
+                      {node.patientEmail}
                     </Typography>
                   </React.Fragment>
                 }
@@ -220,7 +220,7 @@ export default (props) => {
                       //variant="body2"
                       style={{ color: "#FFFFFF", fontSize: "1em" }}
                     >
-                      Patient Contact Number : {node.description}
+                      Patient Contact Number : {node.patientContactNumber}
                     </Typography>
                   </React.Fragment>
                 }

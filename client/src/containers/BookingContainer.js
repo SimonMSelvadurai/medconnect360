@@ -132,7 +132,7 @@ const style = {
         {this.state.formVisible ? (
           <BookingForm
             formVisible={this.state.formVisible}
-            formTitle="Schedule an Event"
+            formTitle="Book an appointment"
             onFormCancel={this.handleFormCancel}
             onFormSubmit={this.handleFormSubmit}
             selectedEvent={this.state.selectedEvent}

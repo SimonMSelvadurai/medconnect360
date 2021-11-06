@@ -41,10 +41,10 @@ const typeDefs = gql`
     isTeleHealth: Boolean,
       clinicName: String,
       appointmentType: String,
-      email: String,
-      dob: String,
+      patientEmail: String,
+      patientDOB: String,
     patientName:String,
-    contactNumber:String,
+    patientContactNumber:String,
     bookingId: String
   }
   
@@ -102,9 +102,9 @@ const typeDefs = gql`
     logindoc(email: String!, password: String!): Auth
     
 
-    addBooking(email: String, dob: String,
+    addBooking(patientEmail: String, patientDOB: String,
       patientName: String,
-      contactNumber: String,
+      patientContactNumber: String,
       doctorId: ID!,
       doctorName: String,
       bookingDate: String,

@@ -48,7 +48,7 @@ const resolvers = {
           $regex: userId,
         };
 
-        return Booking.find({ userId: context.user._id });
+        return Booking.find({ userId: userId });
           // .sort({ createdAt: -1 })
           // .populate("doctor")
           // .populate({
@@ -57,8 +57,19 @@ const resolvers = {
           // });
 
         // return Booking.find();
+      }  else if (context.doctor) {
+        const doctorId = context.doctor._id;
+        // return Booking.find({userId: context.user._id}).sort({ createdAt: -1 });
+        const params = {};
+
+        params.doctorId = {
+          $regex: doctorId,
+        };
+
+        return Booking.find({ doctorId: doctorId });
+
       }
-      throw new AuthenticationError("Not logged in as User");
+      throw new AuthenticationError("Not logged in as User / Doctor");
     },
     // userBookings: async (parent, args, context) => {
     //   if (context.user) {
@@ -106,6 +117,10 @@ const resolvers = {
     bookingsByUserId: async (parent, args, context) => {
       if (context.user) {
         const userId = context.user._id;
+        //return Booking.find({userId: context.user._id}).sort({ createdAt: -1 });
+        return Booking.find();
+      } else if (context.doctor) {
+        const doctorId = context.doctor._id;
         // return Booking.find({userId: context.user._id}).sort({ createdAt: -1 });
         return Booking.find();
       }
@@ -188,10 +203,10 @@ const resolvers = {
       parent,
       {
         bookingId,
-        email,
-        dob,
+        patientEmail,
+        patientDOB,
         patientName,
-        contactNumber,
+        patientContactNumber,
         doctorId,
         doctorName,
         apptDateTime,
@@ -208,10 +223,10 @@ const resolvers = {
             doctorName: doctorName,
             userId: user._id,
             apptDateTime: apptDateTime,
-            email: email,
-            dob: dob,
+            patientEmail: patientEmail,
+            patientDOB: patientDOB,
             patientName: patientName,
-            contactNumber: contactNumber,
+            patientContactNumber: patientContactNumber,
           },
           {
             new: true,
@@ -225,10 +240,10 @@ const resolvers = {
             doctorName: doctorName,
             userId: user._id,
             apptDateTime: apptDateTime,
-            email: email,
-            dob: dob,
+            patientEmail: patientEmail,
+            patientDOB: patientDOB,
             patientName: patientName,
-            contactNumber: contactNumber,
+            patientContactNumber: patientContactNumber,
           });
 
           await User.findByIdAndUpdate(user._id, {

@@ -95,10 +95,10 @@ export const ADD_DOCTOR = gql`
 
 export const ADD_BOOKING = gql`
   mutation addBooking(
-    $email: String
-    $dob:String
+    $patientEmail: String
+    $patientDOB:String
     $patientName: String
-    $contactNumber: String
+    $patientContactNumber: String
     $doctorId: ID!
     $doctorName: String
     $bookingDate: String
@@ -109,10 +109,10 @@ export const ADD_BOOKING = gql`
   ) {
     addBooking(
       bookingId: $bookingId  
-      email: $email
-      dob: $dob
+      patientEmail: $patientEmail
+      patientDOB: $patientDOB
       patientName: $patientName
-      contactNumber: $contactNumber
+      patientContactNumber: $patientContactNumber
       doctorId: $doctorId
       doctorName: $doctorName
       bookingDate: $bookingDate

@@ -72,10 +72,10 @@ export const QUERY_BOOKING_BY_BOOKING_ID = gql`
   query bookingById($bookingId: String!) {
     bookingById(bookingId: $bookingId) {
       bookingId
-      email
-      dob
+      patientEmail
+      patientDOB
       patientName
-      contactNumber
+      patientContactNumber
       clinicName
       doctorId
       doctorName
@@ -91,10 +91,10 @@ export const QUERY_ALL_BOOKINGS_BY_USER_ID = gql`
   query bookingsByUserId {
     userBookings {
       bookingId
-      email
-      dob
+      patientEmail
+      patientDOB
       patientName
-      contactNumber
+      patientContactNumber
       clinicName
      doctorId
      doctorName

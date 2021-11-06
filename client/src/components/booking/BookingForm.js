@@ -47,11 +47,11 @@ const formTitleStyle = {
 export default (props) => {
   console.log("props received-------------", props);
 
-  const [selectedDTStart, handleDTStartChange] = useState(
-    props.hasSelectedEvent ? props.selectedEvent.dtstart : null
+  const [selectedPatientDOB, handlePatientDOBChange] = useState(
+    props.hasSelectedEvent ? props.selectedEvent.patientDOB : null
   );
-  const [selectedDTEnd, handleDTEndChange] = useState(
-    props.hasSelectedEvent ? props.selectedEvent.dtend : null
+  const [selectedApptDateTime, handleApptDateTimeChange] = useState(
+    props.hasSelectedEvent ? props.selectedEvent.apptDateTime : null
   );
   const [isDisabled, setDisabled] = useState(true);
   const frmTitle = useRef(null);
@@ -81,20 +81,20 @@ export default (props) => {
   };
   window.addEventListener("keydown", handleEsc);
   const [formState, setFormState] = useState({
-    dtstart: "",
-    dtend: "",
-    event_title: "",
-    event_location: "",
-    event_description: "",
+    patientDOB: "",
+    apptDateTime: "",
+    patientName: "",
+    patientEmail: "",
+    patientContactNumber: "",
     doctorName: "",
   });
 
   const handleSubmit = () => {
-    var dtstartVal = new Date(document.getElementById("dtstart").value);
-    var dtendVal = new Date(document.getElementById("dtend").value);
-    var titleVal = document.getElementById("event_title").value;
-    var locationVal = document.getElementById("event_location").value;
-    var descriptionVal = document.getElementById("event_description").value;
+    var patientDOBVal = new Date(document.getElementById("patientDOB").value);
+    var apptDateTimeVal = new Date(document.getElementById("apptDateTime").value);
+    var patientNameVal = document.getElementById("patientName").value;
+    var patientEmailVal = document.getElementById("patientEmail").value;
+    var patientContactNumberVal = document.getElementById("patientContactNumber").value;
 
     const bookingId = props.hasSelectedEvent ? props.selectedEvent.uid : crypto.randomUUID();
      
@@ -102,19 +102,19 @@ export default (props) => {
 
     book(
       bookingId,
-      dtstartVal,
-      locationVal,
-      titleVal,
-      descriptionVal,
-      dtendVal
+      patientDOBVal,
+      patientEmailVal,
+      patientNameVal,
+      patientContactNumberVal,
+      apptDateTimeVal
     );
    
     const newEvent = {
-      dtstart: dtstartVal,
-      dtend: dtendVal,
-      title: titleVal,
-      location: locationVal,
-      description: descriptionVal,
+      patientDOB: patientDOBVal,
+      apptDateTime: apptDateTimeVal,
+      patientName: patientNameVal,
+      patientEmail: patientEmailVal,
+      patientContactNumber: patientContactNumberVal,
       doctorName: doctorName,
       // uid: props.hasSelectedEvent ? props.selectedEvent.uid : +new Date(),
       uid: bookingId,
@@ -124,11 +124,11 @@ export default (props) => {
 
   async function book(
     bookingId,
-    dtstartVal,
-    locationVal,
-    titleVal,
-    descriptionVal,
-    dtendVal
+    patientDOBVal,
+    patientEmailVal,
+    patientNameVal,
+    patientContactNumberVal,
+    apptDateTimeVal
   ) {
    
     doctors &&
@@ -142,11 +142,11 @@ export default (props) => {
             bookingId,
             doctorId,
             doctorName,
-            dtendVal,
-            locationVal,
-            dtstartVal,
-            titleVal,
-            descriptionVal
+            apptDateTimeVal,
+            patientEmailVal,
+            patientDOBVal,
+            patientNameVal,
+            patientContactNumberVal
           );
         }
       });
@@ -156,24 +156,24 @@ export default (props) => {
     bookingId,
     doctorId,
     doctorName,
-    dtendVal,
-    locationVal,
-    dtstartVal,
-    titleVal,
-    descriptionVal
+    apptDateTimeVal,
+    patientEmailVal,
+    patientDOBVal,
+    patientNameVal,
+    patientContactNumberVal
   ) {
     try
     {
     let result = await addBooking({
       variables: {
         bookingId: bookingId,
-        email: locationVal,
-        dob: dtstartVal,
-        patientName: titleVal,
-        contactNumber: descriptionVal,
+        patientEmail: patientEmailVal,
+        patientDOB: patientDOBVal,
+        patientName: patientNameVal,
+        patientContactNumber: patientContactNumberVal,
         doctorId: doctorId,
         doctorName: doctorName,
-        apptDateTime: dtendVal,
+        apptDateTime: apptDateTimeVal,
       },
     });
 
@@ -186,11 +186,11 @@ export default (props) => {
   const handleTextChange = () => {
  
     setDisabled(
-      document.getElementById("dtstart").value === "" ||
-        document.getElementById("dtend").value === "" ||
-        document.getElementById("event_title").value === "" ||
-        document.getElementById("event_location").value === "" ||
-        document.getElementById("event_description").value === "" ||
+      document.getElementById("patientDOB").value === "" ||
+        document.getElementById("apptDateTime").value === "" ||
+        document.getElementById("patientName").value === "" ||
+        document.getElementById("patientEmail").value === "" ||
+        document.getElementById("patientContactNumber").value === "" ||
         document.getElementById("listDoctor").value === ""
     );
   };
@@ -222,22 +222,22 @@ export default (props) => {
       <h3 style={formTitleStyle}>{props.formTitle}</h3>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DatePicker
-          id="dtstart_formatted"
+          id="patientDOB_formatted"
           label="Date Of Birth"
-          value={selectedDTStart}
+          value={selectedPatientDOB}
           onChange={(dt) => {
-            handleDTStartChange(dt);
+            handlePatientDOBChange(dt);
             handleTextChange();
           }}
           format={dobFormat}
           style={inputStyle}
         />
         <DateTimePicker
-          id="dtend_formatted"
+          id="apptDateTime_formatted"
           label="Appointment Date"
-          value={selectedDTEnd}
+          value={selectedApptDateTime}
           onChange={(dt) => {
-            handleDTEndChange(dt);
+            handleApptDateTimeChange(dt);
             handleTextChange();
           }}
           format={dateFormat}
@@ -245,39 +245,39 @@ export default (props) => {
         />
       </MuiPickersUtilsProvider>
       <input
-        defaultValue={selectedDTStart === null ? "" : selectedDTStart}
-        id="dtstart"
+        defaultValue={selectedPatientDOB === null ? "" : selectedPatientDOB}
+        id="patientDOB"
         type="hidden"
       />
       <input
-        defaultValue={selectedDTEnd === null ? "" : selectedDTEnd}
-        id="dtend"
+        defaultValue={selectedApptDateTime === null ? "" : selectedApptDateTime}
+        id="apptDateTime"
         type="hidden"
       />
       <TextField
-        id="event_title"
+        id="patientName"
         label="Patient Full Name"
         onChange={handleTextChange}
         style={inputStyle}
         inputRef={frmTitle}
-        defaultValue={props.hasSelectedEvent ? props.selectedEvent.title : null}
+        defaultValue={props.hasSelectedEvent ? props.selectedEvent.patientName : null}
       />
       <TextField
-        id="event_location"
+        id="patientEmail"
         label="EMail Address"
         onChange={handleTextChange}
         style={inputStyle}
         defaultValue={
-          props.hasSelectedEvent ? props.selectedEvent.location : null
+          props.hasSelectedEvent ? props.selectedEvent.patientEmail : null
         }
       />
       <TextField
-        id="event_description"
+        id="patientContactNumber"
         label="Contact Number"
         onChange={handleTextChange}
         style={inputStyle}
         defaultValue={
-          props.hasSelectedEvent ? props.selectedEvent.description : null
+          props.hasSelectedEvent ? props.selectedEvent.patientContactNumber : null
         }
       />
 
