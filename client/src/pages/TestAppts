@@ -1,0 +1,84 @@
+import * as React from "react";
+import "./styles.css";
+import Scheduler, {
+  SchedulerData,
+  ViewTypes,
+  DemoData,
+  DATE_FORMAT
+} from "react-big-scheduler";
+import "react-big-scheduler/lib/css/style.css";
+
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+
+const enhance = DragDropContext(HTML5Backend);
+
+const TestAppts = () => {
+  const [tab, setTab] = React.useState(0);
+  const schedulerData = new SchedulerData("2017-12-18", ViewTypes.Week);
+  schedulerData.setResources(DemoData.resources);
+  return (
+    <div className="App">
+      <div>
+        <div
+          style={{ backgroundColor: tab === 0 ? "red" : "blue" }}
+          onClick={() => setTab(0)}
+        >
+          Tab 1
+        </div>
+        <div
+          style={{ backgroundColor: tab === 1 ? "red" : "blue" }}
+          onClick={() => setTab(1)}
+        >
+          Tab 2
+        </div>
+      </div>
+      <div
+        style={{
+          transform: `translateX(${tab === 0 ? 0 : -100}%)`,
+          transition: "transform 0.1s",
+          position: "absolute",
+          left: 0,
+          top: 100,
+          width: "100%"
+        }}
+      >
+        <div style={{ width: 500 }}>
+          <Scheduler
+            key={`${tab}-${tab === 0}`}
+            schedulerData={schedulerData}
+            prevClick={console.log}
+            nextClick={console.log}
+            onSelectDate={console.log}
+            onViewChange={console.log}
+            eventItemClick={console.log}
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          transform: `translateX(${tab === 0 ? 100 : 0}%)`,
+          transition: "transform 0.1s",
+          position: "absolute",
+          left: 0,
+          top: 100,
+          width: "100%"
+        }}
+      >
+        <div style={{ width: 500 }}>
+          <Scheduler
+            key={`${tab}-${tab === 1}`}
+            schedulerData={schedulerData}
+            prevClick={console.log}
+            nextClick={console.log}
+            onSelectDate={console.log}
+            onViewChange={console.log}
+            eventItemClick={console.log}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default enhance(TestAppts);

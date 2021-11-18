@@ -41,11 +41,10 @@ const typeDefs = gql`
     isTeleHealth: Boolean,
       clinicName: String,
       appointmentType: String,
-      email: String,
-      dob: String,
+      patientEmail: String,
+      patientDOB: String,
     patientName:String,
-    contactNumber:String,
-    bookingId: String
+    patientContactNumber:String,
   }
   
   type Auth {
@@ -79,6 +78,7 @@ const typeDefs = gql`
     appointmentsByUserId(userId: String!) :[Appointment]!
     bookingById(bookingId: String!): Booking
     bookingsByUserId: [Booking]
+    doctorAppointments(doctorId: String!):[Booking]
   }
   type Mutation {
     addUser(email: String!, password: String!, dob:String!, 
@@ -102,18 +102,27 @@ const typeDefs = gql`
     logindoc(email: String!, password: String!): Auth
     
 
-    addBooking(email: String, dob: String,
+    addBooking(patientEmail: String, patientDOB: String,
       patientName: String,
-      contactNumber: String,
+      patientContactNumber: String,
       doctorId: ID!,
       doctorName: String,
       bookingDate: String,
       apptDateTime: String,
       userId: ID,
-      bookingId: String
       ): Booking
 
-      removeBooking(bookingId: String!) : Booking
+      removeBooking(bookingId: ID!) : Booking
+
+      updateBooking(bookingId: ID!,patientEmail: String, patientDOB: String,
+        patientName: String,
+        patientContactNumber: String,
+        doctorId: ID!,
+        doctorName: String,
+        bookingDate: String,
+        apptDateTime: String,
+        userId: ID,
+        ): Booking
   
   }
 `;

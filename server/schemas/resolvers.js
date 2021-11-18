@@ -3,6 +3,7 @@ const e = require("cors");
 const { EmailAddressMock } = require("graphql-scalars");
 const { User, Doctor, Booking } = require("../models");
 const { signToken } = require("../utils/auth");
+const mongoose = require ('mongoose');
 // const {GraphQLDateTime} = require('graphql-iso-date');
 // import { GraphQLScalarType } from 'graphql';
 // import { Kind } from 'graphql/language';
@@ -30,7 +31,7 @@ const resolvers = {
   //DateTime: GraphQLDateTime,
   Query: {
     // doctors: async () => {
-    //   if (context.doctor || context.user) {
+    //   if (context.doctor || context.user) {Booking.find
     //      return await Doctor.find().fullName;
     //    }
     //    throw new AuthenticationError('Not logged in');
@@ -47,19 +48,33 @@ const resolvers = {
         params.userId = {
           $regex: userId,
         };
-
-        return Booking.find({ userId: context.user._id });
-          // .sort({ createdAt: -1 })
-          // .populate("doctor")
-          // .populate({
-          //   path: "doctor",
-          //   populate: "doctor",
-          // });
-
-        // return Booking.find();
+        return Booking.find({ userId: context.user._id }).sort({ apptDateTime: -1 });
+     
       }
       throw new AuthenticationError("Not logged in as User");
     },
+  //   doctorAppointments: async (parent, args, context) => {
+  //   if(context.doctor) {
+  //     const doctorId = context.doctor._id;
+  //     const params = {};
+
+  //     params.doctorId = {
+  //       $regex: doctorId,
+  //     };
+
+  //   return Booking.find({ doctorId: context.doctor._id });
+  //   }
+  //   throw new AuthenticationError("Not logged in as User");
+  // },
+      // .sort({ createdAt: -1 })
+      // .populate("doctor")
+      // .populate({
+      //   path: "doctor",
+      //   populate: "doctor",
+      // });
+
+    // return Booking.find();
+
     // userBookings: async (parent, args, context) => {
     //   if (context.user) {
     //     const userId = context.user._id;
@@ -93,25 +108,49 @@ const resolvers = {
       throw new AuthenticationError("Not logged in as Doc");
     },
 
-    booking: async (parent, { bookingId }, context) => {
-      //if (context.doctor) {
-      return await Booking.find();
-    },
+    // oooooooooooo > booking: async (parent, { bookingId }, context) => {
+    //   //if (context.doctor) {
+    //   return await Booking.find();
+    // },
 
     bookingById: async (parent, { bookingId }, context) => {
       const booking = await Booking.findById(bookingId);
       return booking;
     },
 
-    bookingsByUserId: async (parent, args, context) => {
-      if (context.user) {
-        const userId = context.user._id;
-        // return Booking.find({userId: context.user._id}).sort({ createdAt: -1 });
-        return Booking.find();
+    // bookingsByUserId: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const userId = context.user._id;
+    //     return Booking.find();
+    //   }
+    //   throw new AuthenticationError("Not logged in as User");
+    // },
+      
+    doctorAppointments: async (parent,  { doctorId }, context) => {
+      //const doctorId = context.body.variables.doctorId;
+      console.log("resolvers.js : doctorAppointments : doctorId" , doctorId );
+      console.log("resolvers.js : doctorAppointments :  context" , doctorId);
+      console.log("resolvers.js : doctorAppointments :  parent" , parent );
+     
+      if (doctorId != null) {
+        const params = {};
+      params.doctorId = {
+        $regex: doctorId,
+      };
+        return Booking.find(params).sort({ apptDateTime: -1 });
       }
-      throw new AuthenticationError("Not logged in as User");
+      throw new AuthenticationError("Not logged in as Doctor");
     },
 
+    // doctorAppointments : async (parent, args, context) => {
+    //   console.log("args.doctorId" , args.doctorId);
+    //   const params = {};
+    //   params.doctorId = {
+    //     $regex: args.doctorId,
+    //   };
+    //   const bookings = await Booking.find(params);
+    //   return bookings;
+    // },
     doctorById: async (parent, args, context) => {
       const doctor = await Doctor.findById(args.doctorId);
       return doctor;
@@ -184,70 +223,106 @@ const resolvers = {
       return { token, doctor };
     },
 
-    addBooking: async (
-      parent,
-      {
-        bookingId,
-        email,
-        dob,
-        patientName,
-        contactNumber,
-        doctorId,
-        doctorName,
-        apptDateTime,
-      },
-      context
-    ) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id);
-        const booking = await Booking.findOneAndUpdate(
-          { bookingId: bookingId },
-          {
-            bookingId: bookingId,
-            doctorId: doctorId,
-            doctorName: doctorName,
-            userId: user._id,
-            apptDateTime: apptDateTime,
-            email: email,
-            dob: dob,
-            patientName: patientName,
-            contactNumber: contactNumber,
-          },
-          {
-            new: true,
-          }
-        );
 
-        if (!booking) {
-          const newBooking = await Booking.create({
-            bookingId: bookingId,
-            doctorId: doctorId,
-            doctorName: doctorName,
-            userId: user._id,
-            apptDateTime: apptDateTime,
-            email: email,
-            dob: dob,
-            patientName: patientName,
-            contactNumber: contactNumber,
-          });
+    addBooking : async (parent,args)   => {
+      console.log("argsargs" , args);
+      const newBooking = await Booking.create(args);
+      console.log("newBooking : " , newBooking);
+          // const newBooking = await Booking.create({
+          //   doctorId: doctorId,
+          //   doctorName: doctorName,
+          //   userId: user._id,
+          //   apptDateTime: apptDateTime,
+          //   patientEmail: patientEmail,
+          //   patientDOB: patientDOB,
+          //   patientName: patientName,
+          //   patientContactNumber: patientContactNumber,
+          // });
 
-          await User.findByIdAndUpdate(user._id, {
-            $push: { bookings: newBooking },
-          });
-          await Doctor.findByIdAndUpdate(doctorId, {
-            $push: { bookings: newBooking },
-          });
+          await User.findByIdAndUpdate(args.userId, {
+                    $push: { bookings: newBooking },
+                  });
+                  await Doctor.findByIdAndUpdate(args.doctorId, {
+                    $push: { bookings: newBooking },
+                  });
 
-          return newBooking;
-        }
-        return booking;
-      }
-      throw new AuthenticationError("Not logged in User");
+            
+          return newBooking ;
+
+        },
+
+    // addBooking: async (
+    //   parent,
+    //   { 
+    //     patientEmail,
+    //     patientDOB,
+    //     patientName,
+    //     patientContactNumber,
+    //     doctorId,
+    //     doctorName,
+    //     apptDateTime,
+    //   },
+    //   context
+    // ) => {
+    //   if (context.user) {
+    //     const user = await User.findById(context.user._id);
+    //     const booking = await Booking.findOneAndUpdate(
+    //       { bookingId: bookingId },
+    //       {
+    //         doctorId: doctorId,
+    //         doctorName: doctorName,
+    //         userId: user._id,
+    //         apptDateTime: apptDateTime,
+    //         patientEmail: patientEmail,
+    //         patientDOB: patientDOB,
+    //         patientName: patientName,
+    //         patientContactNumber: patientContactNumber,
+    //       },
+    //       {
+    //         new: true,
+    //       }
+    //     );
+
+    //     if (!booking) {
+    //       const newBooking = await Booking.create({
+    //         doctorId: doctorId,
+    //         doctorName: doctorName,
+    //         userId: user._id,
+    //         apptDateTime: apptDateTime,
+    //         patientEmail: patientEmail,
+    //         patientDOB: patientDOB,
+    //         patientName: patientName,
+    //         patientContactNumber: patientContactNumber,
+    //       });
+
+    //       await User.findByIdAndUpdate(user._id, {
+    //         $push: { bookings: newBooking },
+    //       });
+    //       await Doctor.findByIdAndUpdate(doctorId, {
+    //         $push: { bookings: newBooking },
+    //       });
+
+    //       return newBooking;
+    //     }
+    //     return booking;
+    //   }
+    //   throw new AuthenticationError("Not logged in User");
+    // },
+
+    removeBooking: async (parent, {bookingId}) => {
+      var id = mongoose.Types.ObjectId(bookingId);
+      return Booking.findByIdAndDelete( id);
     },
 
-    removeBooking: async (parent, { bookingId }) => {
-      return Booking.findOneAndDelete({ bookingId: bookingId });
+    
+
+    updateBooking: async (parent, args, context) => {
+      var id = mongoose.Types.ObjectId(args.bookingId);
+        return await Booking.findByIdAndUpdate(id, args, {
+          new: true,
+        });
     },
+
 
     updateDoctor: async (parent, args, context) => {
       if (context.doctor) {

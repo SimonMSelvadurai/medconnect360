@@ -35,6 +35,9 @@ const doctorSchema = new Schema({
     type: String,
     required: true,
   },
+  avatar: {
+    type: String
+},
   education: {
     type: String,
     required: true,

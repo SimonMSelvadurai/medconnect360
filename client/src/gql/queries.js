@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER = gql`
   {
@@ -15,35 +15,34 @@ export const QUERY_DOCTOR = gql`
   }
 `;
 
-
 export const QUERY_ALL_DOCTOR_NAMES = gql`
-query allDoctors {
-  doctors {
-    _id
-    fullName
-    email
-    contactNumber
-    education
-    specialization
-    clinicAddress
-    clinicName
+  query allDoctors {
+    doctors {
+      _id
+      fullName
+      email
+      contactNumber
+      education
+      specialization
+      clinicAddress
+      clinicName
+    }
   }
-}
 `;
 
 export const QUERY_DOCTOR_BY_ID = gql`
   query doctorById($doctorId: String!) {
     doctorById(doctorId: $doctorId) {
+      fullName
       email
       education
       specialization
       clinicAddress
       clinicName
       contactNumber
-      }
+    }
   }
 `;
-
 
 export const QUERY_USER_BY_ID = gql`
   query userById($userId: String!) {
@@ -52,7 +51,7 @@ export const QUERY_USER_BY_ID = gql`
       dob
       email
       contactNumber
-      }
+    }
   }
 `;
 
@@ -64,18 +63,17 @@ export const QUERY_USER_BY_EMAIL = gql`
       dob
       email
       contactNumber
-      }
+    }
   }
 `;
 
 export const QUERY_BOOKING_BY_BOOKING_ID = gql`
-  query bookingById($bookingId: String!) {
+  query bookingById($bookingId: ID!) {
     bookingById(bookingId: $bookingId) {
-      bookingId
-      email
-      dob
+      patientEmail
+      patientDOB
       patientName
-      contactNumber
+      patientContactNumber
       clinicName
       doctorId
       doctorName
@@ -83,25 +81,43 @@ export const QUERY_BOOKING_BY_BOOKING_ID = gql`
       bookingDate
       apptDateTime
       appointmentType
-      }
+    }
   }
 `;
 
-export const QUERY_ALL_BOOKINGS_BY_USER_ID = gql`
+export const QUERY_ALL_BOOKINGS_BY_USER = gql`
   query bookingsByUserId {
     userBookings {
-      bookingId
-      email
-      dob
+      _id
+      patientEmail
+      patientDOB
       patientName
-      contactNumber
+      patientContactNumber
       clinicName
-     doctorId
-     doctorName
+      doctorId
+      doctorName
       userId
       bookingDate
       apptDateTime
       appointmentType
-      }
+    }
+  }
+`;
+
+export const QUERY_ALL_APPOINTMENTS_DOCTOR = gql`
+  query doctorAppointments($doctorId: String!) {
+    doctorAppointments(doctorId: $doctorId) {
+      patientEmail
+      patientDOB
+      patientName
+      patientContactNumber
+      clinicName
+      doctorId
+      doctorName
+      userId
+      bookingDate
+      apptDateTime
+      appointmentType
+    }
   }
 `;

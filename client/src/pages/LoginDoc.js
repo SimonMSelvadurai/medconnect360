@@ -1,25 +1,61 @@
 import React, { useState } from 'react';
+import {
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  Button,
+  Typography,
+  Link,
+} from "@material-ui/core";
+
 import { useMutation } from '@apollo/client';
 import { LOGIN_DOC } from '../gql/mutations';
 import Auth from '../utils/auth';
 
-import { Container } from "../components/Container";
-import { H2 } from '../components/Text';
-import { Breadcrumb } from '../components/Breadcrumb';
-import { Button } from '../components/Button';
+// import { Container } from "../components/Container";
+// import { H2 } from '../components/Text';
+// import { Breadcrumb } from '../components/Breadcrumb';
+// import { Button } from '../components/Button';
+
+
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function LoginDoc(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [logindoc, { error }] = useMutation(LOGIN_DOC);
 
+  const paperStyle = {
+    padding: 20,
+    height: "73vh",
+    width: 300,
+    margin: "0 auto",
+  };
+  const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const btnstyle = { margin: "8px 0" };
+  const initialValues = {
+    email: "",
+    password: "",
+    remember: false,
+  };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("please enter valid email").required("Required"),
+    password: Yup.string().required("Required"),
+  });
+ 
   const handleFormSubmit = async (event) => {
-    event.preventDefault();
     try {
       const mutationResponse = await logindoc({
-        variables: { email: formState.email, password: formState.password },
+        variables: { email: event.email, password: event.password },
       });
       const token = mutationResponse.data.logindoc.token;
-      Auth.login(token);
+      const doctorId = mutationResponse.data.logindoc.doctor._id;
+      Auth.login(token, 'Doctor', doctorId);
+      // console.log("ROLLLLLLLLLLLLLLLLLLLLLEEEEEE",Auth.getRole());
     } catch (e) {
       console.log(e);
     }
@@ -34,45 +70,71 @@ function LoginDoc(props) {
   };
 
   return (
-    <>
-      <Breadcrumb location={'/signup'} text={`← Go to Signup`} />
-      <Container>
-        <H2>Login Doctor</H2>
-        <form onSubmit={handleFormSubmit}>
-        
-
-          <div className="flex-row space-between my-2">
-            {/* <label htmlFor="email">Email address:</label> */}
-            <input
-              placeholder="Email"
-              name="email"
-              type="email"
-              id="email"
-              onChange={handleChange}
-            />
-
-          </div>
-          <div className="flex-row space-between my-2">
-            {/* <label htmlFor="pwd">Password:</label> */}
-            <input
-              placeholder="Password"
-              name="password"
-              type="password"
-              id="pwd"
-              onChange={handleChange}
-            />
-          </div>
-          {error ? (
-            <div>
-              <p className="error-text">The provided credentials are incorrect</p>
-            </div>
-          ) : null}
-          <div className="flex-row flex-end">
-            <Button type="submit">Submit</Button>
-          </div>
-        </form>
-      </Container>
-    </>
+    <Grid>
+      <Paper style={paperStyle}>
+        <Grid align="center">
+          <Avatar style={avatarStyle}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <h2>Login Doctor</h2>
+          </Grid>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleFormSubmit}
+          validationSchema={validationSchema}
+        >
+          {(props) => (
+            <Form>
+              <Field
+                as={TextField}
+                label="Email"
+                name="email"
+                placeholder="Enter Email"
+                fullWidth
+                required
+                helperText={<ErrorMessage name="email" />}
+              />
+              <Field
+                as={TextField}
+                label="Password"
+                name="password"
+                placeholder="Enter password"
+                type="password"
+                fullWidth
+                required
+                helperText={<ErrorMessage name="password" />}
+              />
+              <Field
+                as={FormControlLabel}
+                name="remember"
+                control={<Checkbox color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                disabled={props.isSubmitting}
+                style={btnstyle}
+                fullWidth
+              >
+                {props.isSubmitting ? "Loading" : "Sign in"}
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        {/* <Typography>
+          <Link href="#">Forgot password ?</Link>
+        </Typography> */}
+        <Typography>
+          {" "}
+          Do you have an account ?
+          <Link href="/signupDoc" onClick={() => handleChange("event", 1)}>
+            Sign Up Doctor
+          </Link>
+        </Typography>
+      </Paper>
+    </Grid>
   );
 }
 

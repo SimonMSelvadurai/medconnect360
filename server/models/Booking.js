@@ -25,10 +25,10 @@ const bookingSchema = new Schema({
           default: Date.now,
           // required: true,
         },
-        // bookingStatus: {
-        //   type: String,
-        //   default: "Booked",
-        // },
+        bookingStatus: {
+          type: String,
+          default: "Booked",
+        },
         doctorId: {
           type: String,
           ref: "Doctor",
@@ -48,11 +48,11 @@ const bookingSchema = new Schema({
           // type: String,
           required: true
         },
-        email: {
+        patientEmail: {
           type: String,
           required: true
         },
-        dob: {
+        patientDOB: {
           type: String,
           required: true,
           
@@ -62,17 +62,13 @@ const bookingSchema = new Schema({
           type: String,
           required: true,
         },
-        contactNumber: {
+        patientContactNumber: {
           type: String,
           required: true,
         },
   
 
-  bookingId: {
-    type: String,
-    required: true,
-    unique: true,
-      }
+
   // regNo: {
   //   type: String,
   //   required: true

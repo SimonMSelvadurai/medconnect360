@@ -1,36 +1,26 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { LOGIN } from '../gql/mutations';
-import Auth from '../utils/auth';
-import TextField from "@material-ui/core/TextField";
-import { Container } from "../components/Container";
-import { H2 } from '../components/Text';
-import { Breadcrumb } from '../components/Breadcrumb';
-import { Button } from '../components/Button';
+import React, { useState } from "react";
+import {
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  Button,
+  Typography,
+  Link,
+} from "@material-ui/core";
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { LOGIN } from "../gql/mutations";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-
-
-
-
-
-
-
+// const Login = ({ handleChange }) => {
 function Login(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN);
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const mutationResponse = await login({
-        variables: { email: formState.email, password: formState.password },
-      });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,161 +30,103 @@ function Login(props) {
     });
   };
 
-  const inputStyle = {
-    minWidth: "14em"
+  const paperStyle = {
+    padding: 20,
+    height: "73vh",
+    width: 300,
+    margin: "0 auto",
   };
-  const formTitleStyle = {
-    fontWeight: "bold"
+  const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const btnstyle = { margin: "8px 0" };
+  const initialValues = {
+    email: "",
+    password: "",
+    remember: false,
   };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("please enter valid email").required("Required"),
+    password: Yup.string().required("Required"),
+  });
+  const handleFormSubmit = async (event) => {
+    try {
+      const mutationResponse = await login({
+        variables: { email: event.email, password: event.password },
+      });
 
-  const containerStyle = {
-    backgroundColor: "#cccccc",
-    color: "#000000",
-    display: "flex",
-    alignItems: "center",
-    fontWeight: "bold",
-    fontSize: "1.5em",
-    justifyContent: "space-around",
-    padding: "0.5em 1em",
-    width: "100%"
+      const token = mutationResponse.data.login.token;
+      const userId = mutationResponse.data.login.user._id;
+      Auth.login(token, "User", userId);
+    } catch (e) {
+      console.log(e);
+    }
   };
-
   return (
-    <>
-      {/* <Breadcrumb location={'/signup'} text={`← Go to Signup`} /> */}
-      <Container>
-        <H2>Login</H2>
-        <form onSubmit={handleFormSubmit}>
-          <div className="flex-row space-between my-2">
-            {/* <label htmlFor="email">Email address:</label> */}
-            <input
-              placeholder="Email"
-              name="email"
-              type="email"
-              id="email"
-              onChange={handleChange}
-            />
-
-          </div>
-          <div className="flex-row space-between my-2">
-            {/* <label htmlFor="pwd">Password:</label> */}
-            <input
-              placeholder="Password"
-              name="password"
-              type="password"
-              id="pwd"
-              onChange={handleChange}
-            />
-          </div>
-          {error ? (
-            <div>
-              <p className="error-text">The provided credentials are incorrect</p>
-            </div>
-          ) : null}
-          <div className="flex-row flex-end">
-            <Button type="submit">Submit</Button>
-          </div>
-        </form>
-      </Container>
-    </>
+    <Grid>
+      <Paper style={paperStyle}>
+        <Grid align="center">
+          <Avatar style={avatarStyle}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <h2>Sign In</h2>
+        </Grid>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleFormSubmit}
+          validationSchema={validationSchema}
+        >
+          {(props) => (
+            <Form>
+              <Field
+                as={TextField}
+                label="Email"
+                name="email"
+                placeholder="Enter Email"
+                fullWidth
+                required
+                helperText={<ErrorMessage name="email" />}
+              />
+              <Field
+                as={TextField}
+                label="Password"
+                name="password"
+                placeholder="Enter password"
+                type="password"
+                fullWidth
+                required
+                helperText={<ErrorMessage name="password" />}
+              />
+              <Field
+                as={FormControlLabel}
+                name="remember"
+                control={<Checkbox color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                disabled={props.isSubmitting}
+                style={btnstyle}
+                fullWidth
+              >
+                {props.isSubmitting ? "Loading" : "Sign in"}
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        {/* <Typography>
+          <Link href="#">Forgot password ?</Link>
+        </Typography> */}
+        <Typography>
+          {" "}
+          Do you have an account ?
+          <Link href="/signup" onClick={() => handleChange("event", 1)}>
+            Sign Up
+          </Link>
+        </Typography>
+      </Paper>
+    </Grid>
   );
-
-//   return (
-//     <div style={containerStyle} id="appointmentform">
-//       <form onSubmit={handleFormSubmit}>
-//       <h3 style={formTitleStyle}>{props.formTitle}</h3>
-//       {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-//         <DateTimePicker
-//           id="dtstart_formatted"
-//           label="Start"
-//           value={selectedDTStart}
-//           onChange={dt => {
-//             handleDTStartChange(dt);
-//             handleTextChange();
-//           }}
-//           format={dateFormat}
-//           style={inputStyle}
-//         />
-//         <DateTimePicker
-//           id="dtend_formatted"
-//           label="End"
-//           value={selectedDTEnd}
-//           onChange={dt => {
-//             handleDTEndChange(dt);
-//             handleTextChange();
-//           }}
-//           format={dateFormat}
-//           style={inputStyle}
-//         />
-//       </MuiPickersUtilsProvider> 
-//       <input
-//         defaultValue={selectedDTStart === null ? "" : selectedDTStart}
-//         id="dtstart"
-//         type="hidden"
-//       />
-//       <input
-//         defaultValue={selectedDTEnd === null ? "" : selectedDTEnd}
-//         id="dtend"
-//         type="hidden"
-//       />  */}
-
-
-//       <TextField
-//         id="email"
-//         label="Email"
-//         onChange={handleChange}
-//         style={inputStyle}
-//         inputRef={frmTitle}
-//         // defaultValue={props.hasSelectedEvent ? props.selectedEvent.title : null}
-//       />
-// {/* 
-// <input
-//               placeholder="Email"
-//               name="email"
-//               type="email"
-//               id="email"
-//               onChange={handleChange} */}
-
-//       <TextField
-//         id="event_location"
-//         label="Location"
-//         onChange={handleTextChange}
-//         style={inputStyle}
-//         // defaultValue={
-//         //   props.hasSelectedEvent ? props.selectedEvent.location : null
-//         // }
-//       />
-//       {/* <TextField
-//         id="event_description"
-//         label="Description"
-//         onChange={handleTextChange}
-//         style={inputStyle}
-//         defaultValue={
-//           props.hasSelectedEvent ? props.selectedEvent.description : null
-//         }
-//       />
-//       <div style={{ marginTop: "2em", minWidth: "12em" }}>
-//         <Button
-//           variant="contained"
-//           onClick={props.onFormCancel}
-//           style={{ marginRight: "1em" }}
-//         >
-//           Cancel
-//         </Button>
-//         <Button
-//           variant="contained"
-//           color="primary"
-//           onClick={handleSubmit}
-//           id="formSubmit"
-//           disabled={isDisabled}
-//         >
-//           Submit
-//         </Button> */}
-//       {/* </div> */}
-//       </form>
-//     </div>
-//   );
-  
 }
 
 export default Login;
