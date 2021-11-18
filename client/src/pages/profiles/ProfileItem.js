@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import {Link} from 'react-router-dom';
+import { Avatar, useGravatar } from "@agney/react-avatar";
 // import DoctorList from '../../components/DoctorList';
 // import PropTypes from 'prop-types';
 // import {connect} from 'react-redux';
@@ -39,6 +40,13 @@ const ProfileItem = ({ doctor }) => {
 
         <div className="profile-1">
                 <div className="profile-img">
+                {/* <Avatar
+    //   src={}
+      text={doctor.fullName}
+    /> */}
+
+<Avatar text={doctor.fullName} htmlWidth="100px" />
+
                     {/* <img src={avatar} alt="" /> */}
                 </div>
                 <div className="profile-details">
@@ -65,7 +73,7 @@ const ProfileItem = ({ doctor }) => {
                     //         </Fragment>
                     //     )
                     // } */} 
-                    <Link to={`/doctor/${doctor._id}`} type="button" className="rounded-pill profile-btn btn btn-dark">View Profile</Link>
+                    {/* <Link to={`/doctor/${doctor._id}`} type="button" className="rounded-pill profile-btn btn btn-dark">View Profile</Link> */}
                 </div>
             </div>
     </div>

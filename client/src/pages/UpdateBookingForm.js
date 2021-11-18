@@ -15,7 +15,11 @@ import { ADD_BOOKING } from "../gql/mutations";
 function UpdateBookingForm(props) {
   console.log("UpdateBookingForm PROPS",props);
   const history = useHistory();
+console.log("apptDateTime -------- > ",moment(props.location.state.apptDateTime).format('YYYY-MM-DD'));
 
+console.log("patientDOB -------- > ",props.location.state.patientDOB);
+console.log("doctorName -------- > ",props.location.state.doctorName);
+const doctorName = props.location.state.doctorName;
   const  bookingId   = props.match.params.id;
   const [addBooking,{  error }] = useMutation(ADD_BOOKING, {
   onError: (error) => console.error("Error creating a post", error),
@@ -45,7 +49,8 @@ function UpdateBookingForm(props) {
     patientDOB: props.location.state.patientDOB,
     patientContactNumber: props.location.state.patientContactNumber,
     patientEmail: props.location.state.patientEmail,
-    apptDateTime: props.location.state.apptDateTime,
+    // apptDateTime: props.location.state.apptDateTime,
+    apptDateTime: moment(props.location.state.apptDateTime).format('YYYY-MM-DD'),
   });
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -83,7 +88,7 @@ function UpdateBookingForm(props) {
         variables: {
           doctorId: props.location.state.doctorId,
           userId: userId,
-          doctorName: bookingDetails.fullName,
+          doctorName: doctorName,
           // userId: "6174bf41b102a16e34655c36",
           patientEmail: formState.patientEmail,
           //password: formState.password,
@@ -94,7 +99,7 @@ function UpdateBookingForm(props) {
           apptDate: formState.apptDate,
           patientDOB: formState.patientDOB,
           apptDateTime: formState.apptDateTime,
-          apptDateTime: moment(formState.apptDateTime).format("LLLL"),
+          // apptDateTime: moment(formState.apptDateTime).format("LLLL"),
 
 
           // isTeleHealth: "false",
@@ -123,7 +128,7 @@ function UpdateBookingForm(props) {
             alt=""
           />
           <p className="lead">
-            <strong>{profiles.name}</strong>
+            <strong>{props.location.state.doctorName}</strong>
           </p>
         </div>
       </div>
