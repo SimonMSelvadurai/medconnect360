@@ -160,7 +160,7 @@ function UserAppointments() {
       patientContactNumber: userApptsList[i].patientContactNumber,
       patientDOB: userApptsList[i].patientDOB,
       // apptDateTime: drApptsList[i].apptDateTime.moment().format('LLLL'),
-      apptDateTime: moment(userApptsList[i].apptDateTime).format("LLLL"),
+      apptDateTime: moment(userApptsList[i].apptDateTime).format("LL"),
 
       // status: STATUSES[Math.floor(Math.random() * STATUSES.length)]
       status: "Active",
