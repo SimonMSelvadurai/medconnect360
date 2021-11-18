@@ -5,6 +5,16 @@ class AuthService {
     return decode(this.getToken());
   }
 
+  getRole() {
+    const userRole = localStorage.getItem('user_role');
+    console.log("userRole", userRole);
+    return userRole;
+  }
+
+  isRole(roleName) {
+    return localStorage.getItem('user_role').toLowerCase() === roleName.toLowerCase();
+  }
+
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
@@ -27,9 +37,16 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
-  login(idToken) {
+  getUserId() {
+    // Retrieves the user token from localStorage
+    return localStorage.getItem('user_id');
+  }
+
+  login(idToken, roleName, userId) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
+    localStorage.setItem('user_role', roleName);
+    localStorage.setItem('user_id', userId);
 
     window.location.assign('/');
   }
@@ -37,6 +54,8 @@ class AuthService {
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
+    localStorage.removeItem('user_role');
+    localStorage.removeItem('user_id');
     // this will reload the page and reset the state of the application
     window.location.assign('/');
   }

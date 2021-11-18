@@ -103,12 +103,10 @@ export const ADD_BOOKING = gql`
     $doctorName: String
     $bookingDate: String
     $apptDateTime: String
-    $userId: ID,
-    $bookingId: String!
+    $userId: ID
     
   ) {
     addBooking(
-      bookingId: $bookingId  
       patientEmail: $patientEmail
       patientDOB: $patientDOB
       patientName: $patientName
@@ -120,12 +118,52 @@ export const ADD_BOOKING = gql`
       userId: $userId
     ) {
         _id 
+        patientName
+        patientContactNumber
+        doctorName
+        patientEmail
+          
+    }
+  }
+`;
+
+export const UPDATE_BOOKING = gql`
+  mutation updateBooking($bookingId: ID!
+    $patientEmail: String
+    $patientDOB:String
+    $patientName: String
+    $patientContactNumber: String
+    $doctorId: ID!
+    $doctorName: String
+    $bookingDate: String
+    $apptDateTime: String
+  ) {
+    updateBooking(
+      bookingId:$bookingId
+      patientEmail: $patientEmail
+      patientDOB: $patientDOB
+      patientName: $patientName
+      patientContactNumber: $patientContactNumber
+      doctorId: $doctorId
+      doctorName: $doctorName
+      bookingDate: $bookingDate
+      apptDateTime: $apptDateTime
+    ) {
+        _id 
+        patientName
+        patientDOB
+        patientEmail
+        patientContactNumber
+        apptDateTime
+        doctorName
+        doctorId       
+          
     }
   }
 `;
 
 export const REMOVE_BOOKING = gql`
-  mutation removeBooking($bookingId: String!) {
+  mutation removeBooking($bookingId: ID!) {
     removeBooking(bookingId: $bookingId) {
       _id
     }
