@@ -45,7 +45,6 @@ const typeDefs = gql`
       patientDOB: String,
     patientName:String,
     patientContactNumber:String,
-    bookingId: String
   }
   
   type Auth {
@@ -79,6 +78,7 @@ const typeDefs = gql`
     appointmentsByUserId(userId: String!) :[Appointment]!
     bookingById(bookingId: String!): Booking
     bookingsByUserId: [Booking]
+    doctorAppointments(doctorId: String!):[Booking]
   }
   type Mutation {
     addUser(email: String!, password: String!, dob:String!, 
@@ -110,10 +110,19 @@ const typeDefs = gql`
       bookingDate: String,
       apptDateTime: String,
       userId: ID,
-      bookingId: String
       ): Booking
 
-      removeBooking(bookingId: String!) : Booking
+      removeBooking(bookingId: ID!) : Booking
+
+      updateBooking(bookingId: ID!,patientEmail: String, patientDOB: String,
+        patientName: String,
+        patientContactNumber: String,
+        doctorId: ID!,
+        doctorName: String,
+        bookingDate: String,
+        apptDateTime: String,
+        userId: ID,
+        ): Booking
   
   }
 `;
