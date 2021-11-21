@@ -881,4 +881,8 @@ h5 {
    .top-profile-img {
       display: none;
    }
+   .user {
+    justify-content: space-around;
+}
+   
 }

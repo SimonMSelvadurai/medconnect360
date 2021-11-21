@@ -225,7 +225,7 @@ const resolvers = {
 
 
     addBooking : async (parent,args)   => {
-      console.log("argsargs" , args);
+      console.log("addBooking : argsargs" , args);
       const newBooking = await Booking.create(args);
       console.log("newBooking : " , newBooking);
           // const newBooking = await Booking.create({
@@ -318,9 +318,9 @@ const resolvers = {
 
     updateBooking: async (parent, args, context) => {
       var id = mongoose.Types.ObjectId(args.bookingId);
-        return await Booking.findByIdAndUpdate(id, args, {
-          new: true,
-        });
+      console.log("updateBooking : id" , id);
+
+        return await Booking.findByIdAndUpdate(id, args);
     },
 
 

@@ -22,7 +22,8 @@ function Form(props) {
       console.log("onCompleted() : Data from mutation", data);
       console.log("onCompleted() : mutationResponse : Data from mutation");
         // history.push("/success");
-        history.push('/success', { data: data })
+        // history.push('/success', { data: data })
+        history.push({  pathname: '/success', state:data});
         window.location.reload();
 
         //loadFromDB(true);
@@ -117,13 +118,20 @@ function Form(props) {
         </h1>
         <p className="lead">Provide your details and book your appointment.</p>
         <div className="appointment-doctor">
-          <img
+          {/* <img
             className="round-img appointment-img"
-            src={profiles.avatar}
+            // src={profiles.avatar}
             alt=""
-          />
+          /> */}
+
+                      <i className="fas fa-user-md">
+                     </i>
+
+
+
           <p className="lead">
-            <strong>{profiles.name}</strong>
+         
+            <strong > { "                " }              Dr.{doctorDetails.fullName}</strong>
           </p>
         </div>
       </div>

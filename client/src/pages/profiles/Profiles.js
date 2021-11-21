@@ -17,7 +17,7 @@ function Profiles() {
   //Load Doctors
   const { loading, data } = useQuery(QUERY_ALL_DOCTOR_NAMES);
   const doctors = data?.doctors || {};
-  console.log("doctorsdoctors", doctors);
+  console.log(" Profiles doctorsdoctors", doctors);
   const keys = Object.keys(doctors);
   const doctorsList = Object.values(doctors);
   console.log("doctors Keys : ", keys);
@@ -45,7 +45,12 @@ return (
                         <h1><strong>Doctor Profiles</strong></h1>  
                     </div>
                     <h2 className="welcome-heading"><i className="fas fa-user-md"></i> Book your Appointments</h2>
-                    
+                    {/* <h2 className="welcome-heading"><i className="fas fa-solid fa-stethoscope fa-2xl"></i> Book your Appointments</h2> */}
+
+                    {/* <h2 className="welcome-heading"> <i class="fa-solid fa-stethoscope" />Book your Appointments</h2> */}
+                    {/* <i class="fas fa-solid fa-stethoscope"></i>
+                    <i class="fas fa-light fa-stethoscope"></i> */}
+
                     <br />
                     {
                         doctorsList != null ? (

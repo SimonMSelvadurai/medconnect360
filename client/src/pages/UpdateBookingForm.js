@@ -5,31 +5,49 @@ import { useParams,useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as moment from "moment";
+import emailjs from 'emailjs-com';
 
 // import {addAppointment} from '../../actions/appointment';
 import { Link } from "react-router-dom";
 import { QUERY_BOOKING_BY_BOOKING_ID } from "../gql/queries";
 import profiles from "../pages/profiles/Profiles";
-import { ADD_BOOKING } from "../gql/mutations";
+import { UPDATE_BOOKING } from "../gql/mutations";
 // const Form = ({profile, doctorId,history, addAppointment}) => {
 function UpdateBookingForm(props) {
-  console.log("UpdateBookingForm PROPS",props);
+  // console.log("UpdateBookingForm PROPS",props);
   const history = useHistory();
-console.log("apptDateTime -------- > ",moment(props.location.state.apptDateTime).format('YYYY-MM-DD'));
 
-console.log("patientDOB -------- > ",props.location.state.patientDOB);
-console.log("doctorName -------- > ",props.location.state.doctorName);
+// console.log("apptDateTime -------- > ",moment(props.location.state.apptDateTime).format('YYYY-MM-DD'));
+
+// console.log("patientDOB -------- > ",props.location.state.patientDOB);
+// console.log("doctorName -------- > ",props.location.state.doctorName);
+// console.log("id -------- > ",props.location.state.bookingId);
+
 const doctorName = props.location.state.doctorName;
-  const  bookingId   = props.match.params.id;
-  const [addBooking,{  error }] = useMutation(ADD_BOOKING, {
+  const  bookingId   = props.location.state.bookingId;
+  const [bookinginfo, setbookinginfo] = useState('');
+  const [mutationResponse, setMutationResponse] = useState ('');
+  const [updateBooking,{  error }] = useMutation(UPDATE_BOOKING, {
   onError: (error) => console.error("Error creating a post", error),
    onCompleted: () => {
-      console.log("onCompleted() : Data from mutation", data);
-      console.log("onCompleted() : mutationResponse : Data from mutation");
-        history.push('/success', { data: data })
-        window.location.reload();
+      console.log("onCompleted() : Data from mutation", updateBooking);
+      console.log("onCompleted() : mutationResponse : Data from mutation",mutationResponse);
+      // sendEmail(mutationResponse);
+
+        // history.push('/success', { data: data })
+       history.push({  pathname: '/success', state: mutationResponse});
+
+        window.location.reload(); 
       },
   });
+
+  // function sendEmail(e){
+  //   console.log("sendEmail method -----------------------")
+  //   // e.preventDefault();
+  //   emailjs.sendForm('service_02mze7n','template_16mpbeh',e.target,'user_p44kQTfMHGL9ZoCYpngq4').then (res =>{
+  //     console.log(" sendEmail - > : ", res);
+  //   }).catch(err =>console.log(err));
+  // }
 
 //   const [createPost, { loading, error }] = useMutation(CREATE_POST, {
 //     onCompleted: (data) => console.log("Data from mutation", data),
@@ -75,8 +93,8 @@ const doctorName = props.location.state.doctorName;
     variables: { bookingId: bookingId },
   });
   const bookingDetails = data?.userBookings || {};
-  console.log("<========= Selected Booking Details ========= > ", bookingDetails);
-  console.log("<========= Selected Booking Details <data> ========= > ", data);
+  // console.log("<========= Selected Booking Details ========= > ", bookingDetails);
+  console.log("<========= mutationResponse mutationResponse  ========= > ", mutationResponse);
   // const doctorName = data.doctorName;
   const userId = Auth.getUserId();
   // console.log("USEEEEEEEEEEEEEEEr id ", userId);
@@ -84,8 +102,10 @@ const doctorName = props.location.state.doctorName;
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const mutationResponse = await addBooking({
+      // console.log("to send update booking for id : ", bookingId);
+      setMutationResponse(await updateBooking({
         variables: {
+          bookingId: bookingId,
           doctorId: props.location.state.doctorId,
           userId: userId,
           doctorName: doctorName,
@@ -105,8 +125,8 @@ const doctorName = props.location.state.doctorName;
           // isTeleHealth: "false",
           // clinicName: formState.clinicName,
         },
-      });
-      //console.log("{{{{{{{{{{{mutationResponse}}}}}}}}}", mutationResponse);
+      }));
+      // console.log("{{{{{{{{{{{mutationResponse}}}}}}}}}", mutationResponse);
       // <Link to={`/Success`} response={mutationResponse}> </Link>
     } catch (e) {
       console.log(e);
@@ -122,13 +142,15 @@ const doctorName = props.location.state.doctorName;
         </h1>
         <p className="lead">Provide your details and book your appointment.</p>
         <div className="appointment-doctor">
-          <img
+          {/* <img
             className="round-img appointment-img"
             src={profiles.avatar}
             alt=""
-          />
+          /> */}
+              <i className="fas fa-user-md">
+                     </i>
           <p className="lead">
-            <strong>{props.location.state.doctorName}</strong>
+            <strong>Dr.{props.location.state.doctorName}</strong>
           </p>
         </div>
       </div>

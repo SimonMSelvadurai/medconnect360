@@ -76,7 +76,7 @@ const typeDefs = gql`
     userById(userId: String!) :User
     userByEmail(email: String!) :User
     appointmentsByUserId(userId: String!) :[Appointment]!
-    bookingById(bookingId: String!): Booking
+    bookingById(bookingId: ID!): Booking
     bookingsByUserId: [Booking]
     doctorAppointments(doctorId: String!):[Booking]
   }

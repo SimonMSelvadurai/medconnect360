@@ -84,7 +84,9 @@ function UserAppointments() {
       console.log("onCompleted() : Data from mutation", data);
       console.log("onCompleted() : mutationResponse : Data from mutation");
         // history.push("/success");
-        history.push('/cancelSuccess', { data: data })
+        //history.push('/cancelSuccess', { data: data })
+        history.push({  pathname: '/cancelSuccess', state: data});
+
         window.location.reload();
 
         //loadFromDB(true);

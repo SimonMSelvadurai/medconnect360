@@ -8,7 +8,7 @@ import { Avatar, useGravatar } from "@agney/react-avatar";
 import {useLocation} from "react-router-dom";
 // function ProfileItem ()
 const ProfileItem = ({ doctor }) => {
-
+    console.log("ProfileItem  doctor : - ", doctor);
     const location = useLocation();
     console.log(location);
 // DoctorList: {
@@ -40,12 +40,18 @@ const ProfileItem = ({ doctor }) => {
 
         <div className="profile-1">
                 <div className="profile-img">
-                {/* <Avatar
+                {/* <h2>
+                {/* <i className="fa fa-user-md"   > */}
+                {/* <i className="fas fa-solid fa-stethoscope fa-2xl">
+                     </i>
+                </h2>  */}
+
+                {/* <Avatar font-size= "60px"
     //   src={}
       text={doctor.fullName}
     /> */}
 
-<Avatar text={doctor.fullName} htmlWidth="100px" />
+{/* <Avatar text={doctor.fullName} htmlWidth="60px" /> */}
 
                     {/* <img src={avatar} alt="" /> */}
                 </div>
