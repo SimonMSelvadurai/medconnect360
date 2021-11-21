@@ -55,6 +55,7 @@ function Login(props) {
       const token = mutationResponse.data.login.token;
       const userId = mutationResponse.data.login.user._id;
       Auth.login(token, "User", userId);
+      console.log(Auth);
     } catch (e) {
       console.log(e);
     }

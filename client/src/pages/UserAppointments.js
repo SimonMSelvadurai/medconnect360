@@ -58,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserAppointments() {
+function UserAppointments(props) {
+  console.log("--- PROPS --- : ", props);
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -135,12 +136,10 @@ function UserAppointments() {
       doctorName: userApptsList[i].doctorName,
       clinicName: userApptsList[i].clinicName,
       bookingId: userApptsList[i]._id,
-
       patientName: userApptsList[i].patientName,
       patientEmail: userApptsList[i].patientEmail,
       patientContactNumber: userApptsList[i].patientContactNumber,
       patientDOB: userApptsList[i].patientDOB,
-      // apptDateTime: drApptsList[i].apptDateTime.moment().format('LLLL'),
       apptDateTime: moment(userApptsList[i].apptDateTime).format("LL"),
 
       // status: STATUSES[Math.floor(Math.random() * STATUSES.length)]
@@ -259,4 +258,5 @@ function UserAppointments() {
     </TableContainer>
   );
 }
+
 export default UserAppointments;

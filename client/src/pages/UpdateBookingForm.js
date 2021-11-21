@@ -18,20 +18,16 @@ function UpdateBookingForm(props) {
   const bookingId = props.location.state.bookingId;
   const [bookinginfo, setbookinginfo] = useState("");
   const [mutationResponse, setMutationResponse] = useState("");
-  const [updateBooking, { error }] = useMutation(UPDATE_BOOKING, {
+  const [updateBooking, {  response,  error  }] = useMutation(UPDATE_BOOKING, {
     onError: (error) => console.error("Error creating a post", error),
     onCompleted: () => {
-      console.log("onCompleted() : Data from mutation", updateBooking);
-      console.log(
-        "onCompleted() : mutationResponse : Data from mutation",
-        mutationResponse
-      );
+      console.log("onCompleted() : Data from mutation", response);
+      console.log("onCompleted() : mutationResponse : Data from mutation",{mutationResponse});
+      console.log("onCompleted() : setMutationResponse : Data from mutation",setMutationResponse);
       // sendEmail(mutationResponse);
-
       // history.push('/success', { data: data })
       history.push({ pathname: "/success", state: mutationResponse });
-
-      window.location.reload();
+      // window.location.reload();
     },
   });
 
@@ -111,6 +107,7 @@ function UpdateBookingForm(props) {
     } catch (e) {
       console.log(e);
     }
+    console.log("<------->: mutationResponse : Data from mutation",setMutationResponse);
   };
 
   return (
