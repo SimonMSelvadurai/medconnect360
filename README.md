@@ -28,47 +28,37 @@ https://medconnect360.herokuapp.com/
 
 ### Login page
 
-<img src="./readme_images/login.png">
-
+![image](https://user-images.githubusercontent.com/80757990/142761966-209ce4de-c2f0-4a2d-b594-0c5736a6bc45.png)
 ### Sign up page
 
-<img src="./readme_images/signup2.png">
+![image](https://user-images.githubusercontent.com/80757990/142761913-5f36b4a0-c21f-4b00-9c6d-37af7721ef69.png)
+
+### Sign up Doctor
+![image](https://user-images.githubusercontent.com/80757990/142761929-3f6c4aee-b73a-4b05-b20c-b5ef03b8a977.png)
+
+### Login Doctor
+![image](https://user-images.githubusercontent.com/80757990/142761949-c9d623dc-22c1-4017-a312-bc03505a19a7.png)
+
 
 ### Home page
 
-<img src="./readme_images/home.png">
+![image](https://user-images.githubusercontent.com/80757990/142761902-bdda841e-4826-4850-bae0-397a66259f45.png)
 
-### My health log
+### My List of Appointments
 
-<img src="./readme_images/health_log.png">
+![image](https://user-images.githubusercontent.com/80757990/142761827-78c75e33-93c1-4066-bfad-e50cd3cd3f0c.png)
 
-### My symptom journal
+### New Appointments
 
-<img src="./readme_images/symptom_journal.png">
-
-### Appointments
-
-<img src="./readme_images/appointments.png">
-
-### Prescriptions
-
-<img src="./readme_images/prescriptions.png">
+![image](https://user-images.githubusercontent.com/80757990/142761808-50fb28ea-d6cb-46f7-a1de-02dbff42854c.png)
 
 ### Doctors list
 
-<img src="./readme_images/doctors.png">
-
-### Clinics list
-
-<img src="./readme_images/clinics.png">
-
-### Charts
-
-<img src="./readme_images/charts.png">
+![image](https://user-images.githubusercontent.com/80757990/142761784-eee8efab-fb29-440c-b37c-7330c61194dd.png)
 
 ### 404 Not found page
 
-<img src="./readme_images/notfound.png">
+![image](https://user-images.githubusercontent.com/80757990/142761726-37476853-ba96-48f2-8e20-fb08cf291812.png)
 
 ## <a name="about-this-project"></a> About this project
 This app shows all the ist of registered doctors from various clinic. 
