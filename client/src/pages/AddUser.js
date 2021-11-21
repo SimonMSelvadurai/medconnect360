@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
-import { ADD_USER } from '../gql/mutations';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { ADD_USER } from "../gql/mutations";
 
-import { Container } from '../components/Container';
-import { H2 } from '../components/Text';
-import { Breadcrumb } from '../components/Breadcrumb';
-import { Button } from '../components/Button';
+import { Container } from "../components/Container";
+import { H2 } from "../components/Text";
+import { Breadcrumb } from "../components/Breadcrumb";
+import { Button } from "../components/Button";
 
 function AddUser(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [addUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
@@ -21,7 +21,7 @@ function AddUser(props) {
         password: formState.password,
         fullName: formState.fullName,
         dob: formState.dob,
-        contactNumber: formState.contactNumber
+        contactNumber: formState.contactNumber,
       },
     });
     const token = mutationResponse.data.addUser.token;
@@ -38,7 +38,6 @@ function AddUser(props) {
 
   return (
     <>
-      {/* <Breadcrumb location={'/login'} text={`← Go to Login`} /> */}
       <Container>
         <H2>AddUser</H2>
         <form onSubmit={handleFormSubmit}>
@@ -52,7 +51,7 @@ function AddUser(props) {
               onChange={handleChange}
             />
           </div>
-          
+
           <div className="flex-row space-between my-2">
             <label htmlFor="contactNumber">ContactNumber:</label>
             <input
@@ -62,31 +61,18 @@ function AddUser(props) {
               id="contactNumber"
               onChange={handleChange}
             />
-
           </div>
-          {/* <div className="flex-row space-between my-2">
-            <label htmlFor="dob">Date of birth:</label>
-            <input
-              placeholder="01/01/2000"
-              name="dob"
-              type="dob"
-              id="dob"
-              onChange={handleChange}
-            /> */}
-
-          {/* </div> */}
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DatePicker
-          id="dob"
-          label="Date Of Birth"
-          value={selectedDTStart}
-          onChange={handleChange}
-          format={dobFormat}
-          style={inputStyle}
-        />
-      </MuiPickersUtilsProvider>
-
+            <DatePicker
+              id="dob"
+              label="Date Of Birth"
+              value={selectedDTStart}
+              onChange={handleChange}
+              format={dobFormat}
+              style={inputStyle}
+            />
+          </MuiPickersUtilsProvider>
 
           <div className="flex-row space-between my-2">
             <label htmlFor="fullName">Full Name:</label>
@@ -100,13 +86,11 @@ function AddUser(props) {
           </div>
 
           <TextField
-        id="fullName"
-        label="Full Name"
-        onChange={handleChange}
-        style={inputStyle}
-        // inputRef={frmTitle}
-        // defaultValue={props.hasSelectedEvent ? props.selectedEvent.title : null}
-      />
+            id="fullName"
+            label="Full Name"
+            onChange={handleChange}
+            style={inputStyle}
+          />
           <div className="flex-row flex-end">
             <Button type="submit">Submit</Button>
           </div>
@@ -114,11 +98,6 @@ function AddUser(props) {
       </Container>
     </>
   );
-
-
-
-
-
 }
 
 export default AddUser;

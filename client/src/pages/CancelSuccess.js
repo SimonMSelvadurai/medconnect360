@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
    console.log ("CancelSuccess Page ",props)
  return (
     <div>
-        <h1>Success!!!</h1>
-        <h2>Your booking is cancelled successfully!</h2>
+        <h1>Your booking is cancelled !!! </h1>
         <h2>You can book appointment by clicking the Book Appointment !!!</h2>
         <Link
           to="/Appointment"

@@ -10,40 +10,6 @@ const BookingInfo = () => {
   const bookingUser = data?.user || {};
   console.log("user",bookingUser);
 
-
-
-
-  // {
-  //   doctors &&
-  //   doctors.map((doctor) => ({
-  //   //   key=doctor          
-  //   // doctor.fullName
-  //   //  doctor.Specialization
-  //   }
-
-            
-          // <Link
-          //   className="btn btn-block btn-squared btn-light text-dark"
-          //   to={`/booking/${doctor._id}`}>
-          //   Book Appointment
-          // </Link>
-
-
-
-
-
-
-
-
-
-
-
-
-// const DoctorList = ({ doctors, title }) => {
-//   if (!doctors.length) {
-//     return <h3>No doctors Yet</h3>;
-//   }
-
   return (
     <div>
       <h3 className="text-primary">{title}</h3>

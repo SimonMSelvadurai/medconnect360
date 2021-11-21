@@ -1,9 +1,5 @@
 const { gql } = require('apollo-server-express');
 const {GraphQLDateTime} = require('graphql-iso-date');
-// const { DateTime } = require('graphql-scalars/mocks');
-// scalar DateTime
-//scalar Date
-
 
 const typeDefs = gql`
   type User {

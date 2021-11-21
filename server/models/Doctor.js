@@ -70,10 +70,5 @@ doctorSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-// doctorSchema.methods.getDoctors = async () =>({
-// return await
-
-// });
 const Doctor = mongoose.model("Doctor", doctorSchema);
-
 module.exports = Doctor;

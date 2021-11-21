@@ -169,27 +169,6 @@ export const REMOVE_BOOKING = gql`
     }
   }
 `;
-// export const ADD_PROFILE = gql`
-//   mutation addProfile($name: String!, $email: String!, $password: String!, $role: String!) {
-//     addProfile(name: $name, email: $email, password: $password,role:$role) {
-//       token
-//       profile {
-//         _id
-//         name
-//         role
-//       }
-//     }
-//   }
-// `;
 
-// export const ADD_SKILL = gql`
-//   mutation addSkill($profileId: ID!, $skill: String!) {
-//     addSkill(profileId: $profileId, skill: $skill) {
-//       _id
-//       name
-//       skills
-//     }
-//   }
-// `;
 
 

@@ -3,16 +3,10 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// class MyDatepickerComponent extends Component {
-
 function MyDatepickerComponent(props) {
 
 
     const [startDate,setStartDate] = useState(new Date());
-
-// state = {
-//         startDate: new Date()
-//     };
 
     const handleChange = date => {
         console.log("DatePicker getMinutes Value   : ",date.getMinutes());
@@ -23,10 +17,6 @@ function MyDatepickerComponent(props) {
             startDate: date
         });
     };
-
-    // const handleChange = (event) => {
-    //     setDoctorName(event.target.value);
-    //   };
     const excludeDatesArray = [new Date('11-08-2021'), new Date('11-09-2021')]
     const excludeTimeArray = [new Date('11-08-2021'), new Date('11-09-2021')]
  

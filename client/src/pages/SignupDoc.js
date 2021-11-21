@@ -65,11 +65,8 @@ const SignupDoc = (props) => {
     
   });
 
-//   const handleFormSubmit = () => {
-//     console.log("handleFormSubmit");
-//   };
+
   const handleFormSubmit = async (event) => {
-    // event.preventDefault();
     const mutationResponse = await addDoctor({
       variables: {
         email: event.email,

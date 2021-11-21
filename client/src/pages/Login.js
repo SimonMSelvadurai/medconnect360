@@ -17,7 +17,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// const Login = ({ handleChange }) => {
 function Login(props) {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN);
@@ -114,9 +113,6 @@ function Login(props) {
             </Form>
           )}
         </Formik>
-        {/* <Typography>
-          <Link href="#">Forgot password ?</Link>
-        </Typography> */}
         <Typography>
           {" "}
           Do you have an account ?

@@ -14,9 +14,9 @@ function sendEmail(e){
  return (
     <div>
         <h1>Success!!!</h1>
-        <h2>Your booking is successfull!</h2>
+        <h2>Your booking is successfull !!!</h2>
         <Link
-          to="/Appointment"
+          to="/userAppointments"
           type="submit"
           className="btn btn-outline-secondary"
         >
