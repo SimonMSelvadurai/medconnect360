@@ -4,10 +4,9 @@ import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { useParams, useHistory, Link } from "react-router-dom";
 
-
 import * as moment from "moment";
 import { useQuery } from "@apollo/client";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -63,43 +62,29 @@ function UserAppointments() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  // const [userApptsList, setUserApptsList] = useState();
   const userId = Auth.getUserId();
   const history = useHistory();
-  // console.log("<========= useParams ========= > ", useParams());
 
-  // console.log("<========= DoctorID ========= > ", doctorId);
-
-  // var userId = Auth.getUserId();
-  console.log("USEEEEEEEEEEEEEEE", userId);
   const { loading, data } = useQuery(QUERY_ALL_BOOKINGS_BY_USER, {
     variables: { userId: userId },
   });
 
-  const [removeBooking] = useMutation(REMOVE_BOOKING,{
-    // onCompleted: (data) => console.log("Data from mutation", data),
+  const [removeBooking] = useMutation(REMOVE_BOOKING, {
     onError: (error) => console.error("Error creating a post", error),
-    // onCompleted: () => <Link to={`/Success`} response={data}> </Link>,
     onCompleted: () => {
       console.log("onCompleted() : Data from mutation", data);
       console.log("onCompleted() : mutationResponse : Data from mutation");
-        // history.push("/success");
-        //history.push('/cancelSuccess', { data: data })
-        history.push({  pathname: '/cancelSuccess', state: data});
+      history.push({ pathname: "/cancelSuccess", state: data });
 
-        window.location.reload();
-
-        //loadFromDB(true);
-      }
-    });
+      window.location.reload();
+    },
+  });
 
   console.log("USER APPT LIST data ___>", data);
   const userApptsList = data?.userBookings || {};
   console.log("USER APPT LIST  ___>", userApptsList);
 
   console.log("userBookings role", Auth.getRole());
-
-  // const appointments = [];
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -112,7 +97,7 @@ function UserAppointments() {
 
   const handleRemoveBooking = async (bookingId) => {
     console.log("handleRemoveBooking : ", bookingId);
-    
+
     try {
       let result = await removeBooking({
         variables: {
@@ -126,12 +111,7 @@ function UserAppointments() {
 
   const handleUpdateBooking = async (row) => {
     console.log("handleUpdateBooking : Booking ID is :  ", row.bookingId);
-    // <Link  to={`/editBooking/${row.bookingId}`}>
-    
-    // history.push('/editBooking/`bookingId`',{ data: data });
-    // props.history.push({  pathname: '/editBooking/`bookingId`', state: row});
-  // </Link> 
-    
+
     // try {
     //   let result = await removeBooking({
     //     variables: {
@@ -142,7 +122,6 @@ function UserAppointments() {
     //   console.log(e);
     // }
   };
-
 
   // const { loading, data } = useQuery(QUERY_ALL_DOCTOR_NAMES);
   //  const doctors = data?.doctors || {};
@@ -185,9 +164,12 @@ function UserAppointments() {
               Appointment Details
             </TableCell>
             {/* <TableCell className={classes.tableHeaderCell}>Status</TableCell> */}
-            <TableCell className={classes.tableHeaderCell}>Edit Booking</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Cancel Booking</TableCell>
-
+            <TableCell className={classes.tableHeaderCell}>
+              Edit Booking
+            </TableCell>
+            <TableCell className={classes.tableHeaderCell}>
+              Cancel Booking
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -236,53 +218,18 @@ function UserAppointments() {
                 <Typography className={classes.color}>
                   {row.apptDateTime}
                 </Typography>
-                {/* <Typography color="primary" variant="subtitle2">{row.clinicName}</Typography> */}
-                {/* <Typography color="textSecondary" variant="body2">{row.clinicAddress}</Typography> */}
               </TableCell>
-              {/* // <TableCell>{row.clinicAddress}</TableCell> */}
-              {/* <TableCell>
-                <Typography
-                  className={classes.status}
-                  style={{
-                    backgroundColor:
-                      (row.status === "Active" && "green") ||
-                      (row.status === "Pending" && "blue") ||
-                      (row.status === "Blocked" && "orange"),
-                  }}
-                >
-                  {row.status}
-                </Typography>
-                </TableCell> */}
-                {/* <button onClick = {()=>window.location.href = `http://localhost:3000/booking/617a0b73d7911554c8e3655c`} >Book Appointment</button> */}
-
-                {/* <button onClick = {(e)=>{ history.push(`/booking/617a0b73d7911554c8e3655c`)}}>  Submit       </button> */}
-                {/* <Link
-                className="btn btn-block btn-squared btn-light text-dark"
-                to={`/booking/${row.docId}`}>
-                Book Appointment
-              </Link> */}
-                {/* <button onClick = {(e)=>{ history.push()}}> */}
-           
-
-                           {/* <ProfileItem key={row.bookingId} doctor={doctor} /> */}
-
-
               <TableCell>
                 <button
                   onClick={() => {
-                    //  handleUpdateBooking(row.bookingId);
-                    // history.push(`/editBooking/${row}`)
-                    history.push({  pathname: '/editBooking', state: row});
-                                                         }}
+                    history.push({ pathname: "/editBooking", state: row });
+                  }}
                 >
                   <span role="img" aria-label="send">
-                    {/* <Button variant="contained"> */}
                     ✅
                   </span>
                 </button>
-                {/* </Button> */}
               </TableCell>
-
               <TableCell>
                 <button
                   onClick={() => {
@@ -290,14 +237,10 @@ function UserAppointments() {
                   }}
                 >
                   <span role="img" aria-label="delete">
-                    {/* <Button variant="contained"> */}
                     ✖️
                   </span>
                 </button>
-                {/* </Button> */}
               </TableCell>
-
-
             </TableRow>
           ))}
         </TableBody>
@@ -316,5 +259,4 @@ function UserAppointments() {
     </TableContainer>
   );
 }
-
 export default UserAppointments;

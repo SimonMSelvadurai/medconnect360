@@ -12,13 +12,6 @@ import {
 import { useMutation } from '@apollo/client';
 import { LOGIN_DOC } from '../gql/mutations';
 import Auth from '../utils/auth';
-
-// import { Container } from "../components/Container";
-// import { H2 } from '../components/Text';
-// import { Breadcrumb } from '../components/Breadcrumb';
-// import { Button } from '../components/Button';
-
-
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -55,7 +48,6 @@ function LoginDoc(props) {
       const token = mutationResponse.data.logindoc.token;
       const doctorId = mutationResponse.data.logindoc.doctor._id;
       Auth.login(token, 'Doctor', doctorId);
-      // console.log("ROLLLLLLLLLLLLLLLLLLLLLEEEEEE",Auth.getRole());
     } catch (e) {
       console.log(e);
     }
@@ -123,9 +115,6 @@ function LoginDoc(props) {
             </Form>
           )}
         </Formik>
-        {/* <Typography>
-          <Link href="#">Forgot password ?</Link>
-        </Typography> */}
         <Typography>
           {" "}
           Do you have an account ?

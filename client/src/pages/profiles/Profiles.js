@@ -5,15 +5,8 @@ import { QUERY_ALL_DOCTOR_NAMES } from "../../gql/queries";
 import { useQuery } from "@apollo/client";
 import ProfileItem from "./ProfileItem";
 import Moment from "react-moment";
-// import {Dots} from 'react-preloaders';
-// import ProfileItem from './ProfileItem';
-// import {getProfiles} from '../../actions/profile';
 
 function Profiles() {
-  // useEffect(() => {
-  //     getProfiles();
-  // },[getProfiles]);
-
   //Load Doctors
   const { loading, data } = useQuery(QUERY_ALL_DOCTOR_NAMES);
   const doctors = data?.doctors || {};
@@ -29,12 +22,6 @@ function Profiles() {
     console.log(doctor.email)
 }); 
 
-//   console.log(doctors.fullName);
-// keys.forEach((key, index) => {
-//     // console.log(`${key}: ${doctors[key]}`);
-//     console.log(`${key}: ${doctors.values}`);
-// });
-
 return (
     <Fragment>
         { loading ? <Spinner /> : 
@@ -45,12 +32,6 @@ return (
                         <h1><strong>Doctor Profiles</strong></h1>  
                     </div>
                     <h2 className="welcome-heading"><i className="fas fa-user-md"></i> Book your Appointments</h2>
-                    {/* <h2 className="welcome-heading"><i className="fas fa-solid fa-stethoscope fa-2xl"></i> Book your Appointments</h2> */}
-
-                    {/* <h2 className="welcome-heading"> <i class="fa-solid fa-stethoscope" />Book your Appointments</h2> */}
-                    {/* <i class="fas fa-solid fa-stethoscope"></i>
-                    <i class="fas fa-light fa-stethoscope"></i> */}
-
                     <br />
                     {
                         doctorsList != null ? (
@@ -67,13 +48,5 @@ return (
 )
 }
 
-// Profiles.propTypes = {
-//     getProfiles: PropTypes.func.isRequired,
-//     profile: PropTypes.object.isRequired
-// };
-
-// const mapStateToProps = state => ({
-//     profile: state.profile
-// });
 export default Profiles;
-// export default connect(mapStateToProps, {getProfiles})(Profiles);
+

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-//import { Field } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
@@ -108,7 +107,7 @@ const Signup = props => {
 };
 
 export default Signup({
-  form: 'MaterialUiForm', // a unique identifier for this form
+  form: 'MaterialUiForm', 
   validate,
   asyncValidate,
 })(MaterialUiForm);
