@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import emailjs from 'emailjs-com';
 
- function Success(data) {
+ function Success(props) {
+   console.log("Success   : ",props);
+function sendEmail(e){
+  e.preventDefault();
+  emailjs.sendForm('service_02mze7n','template_16mpbeh',e.target,'user_p44kQTfMHGL9ZoCYpngq4').then (res =>{
+    console.log(" sendEmail - > : ", res);
+  }).catch(err =>console.log(err));
+}
+  
  return (
     <div>
         <h1>Success!!!</h1>

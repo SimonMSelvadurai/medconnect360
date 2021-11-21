@@ -39,7 +39,7 @@ const AppointmentForm = (props) =>{
                         {
                                 doctorId !== null ? 
                                 (
-                                    <Form profile={profiles.doctor} 
+                                    <Form profile={profiles.name} 
                                     // history={history} 
                                     doctorId={doctorId} />
                                 ) : (
