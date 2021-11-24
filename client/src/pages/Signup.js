@@ -57,7 +57,9 @@ const Signup = () => {
           },
         });
         const token = mutationResponse.data.addUser.token;
-        Auth.login(token, 'User');
+        const userId = mutationResponse.data.addUser.user._id;
+
+        Auth.login(token, "User", userId);
       };
 
       const handleChange = (event) => {
